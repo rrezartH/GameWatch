@@ -1,5 +1,5 @@
+global using Microsoft.EntityFrameworkCore;
 using GameWatchAPI.Data;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

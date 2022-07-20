@@ -27,7 +27,6 @@ namespace GameWatchAPI.Controllers
         public async Task<ActionResult<Biznesi>> GetBiznesiById(int id)
         {
             var dbBiznesi = await _context.Biznesi.FindAsync(id);
-
             if (dbBiznesi == null)
                 return NotFound("Ky biznes nuk ekziston.");
 
@@ -49,8 +48,7 @@ namespace GameWatchAPI.Controllers
                 Adresa = biznesiDTO.Adresa
             };
 
-            _context.Add(biznesi);
-
+            _context.Biznesi.Add(biznesi);
             await _context.SaveChangesAsync();
 
             return Ok(biznesiDTO);
