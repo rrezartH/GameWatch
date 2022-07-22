@@ -7,8 +7,8 @@ namespace GameWatchAPI.Models
     {
         public Lokali()
         {
+            BiznesiKonzola = new HashSet<BiznesiKonzola>();
             Fatura = new HashSet<Fatura>();
-            PlayStation = new HashSet<PlayStation>();
         }
 
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace GameWatchAPI.Models
         public int BiznesiId { get; set; }
 
         public virtual Biznesi Biznesi { get; set; } = null!;
+        public virtual ICollection<BiznesiKonzola> BiznesiKonzola { get; set; }
         public virtual ICollection<Fatura> Fatura { get; set; }
-        public virtual ICollection<PlayStation> PlayStation { get; set; }
     }
 }

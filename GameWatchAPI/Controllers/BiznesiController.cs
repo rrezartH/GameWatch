@@ -45,8 +45,9 @@ namespace GameWatchAPI.Controllers
                 Email = biznesiDTO.Email,
                 NrTel = biznesiDTO.NrTel,
                 Qyteti = biznesiDTO.Qyteti,
-                Adresa = biznesiDTO.Adresa
-            };
+                Adresa = biznesiDTO.Adresa,
+                ProfilePicture = biznesiDTO.ProfilePicture
+        };
 
             _context.Biznesi.Add(biznesi);
             await _context.SaveChangesAsync();
@@ -71,6 +72,8 @@ namespace GameWatchAPI.Controllers
                 dbBiznesi.Qyteti = biznesiDTO.Qyteti;
             if (!biznesiDTO.Adresa.Trim().Equals(""))
                 dbBiznesi.Adresa = biznesiDTO.Adresa;
+            if (biznesiDTO.ProfilePicture == null)
+                dbBiznesi.ProfilePicture = biznesiDTO.ProfilePicture;
 
             await _context.SaveChangesAsync();
 

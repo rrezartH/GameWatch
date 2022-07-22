@@ -2,6 +2,7 @@
 {
     public class BiznesiDTO
     {
+        public byte[]? ProfilePicture { get; set; }
         public string Emri { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string NrTel { get; set; } = null!;
