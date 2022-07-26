@@ -16,13 +16,13 @@ namespace GameWatchAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("GetBiznesiKonzola")]
+        [HttpGet("getBiznesiKonzola")]
         public async Task<ActionResult<List<BiznesiKonzola>>> GetBiznesiKonzola()
         {
             return Ok(await _context.BiznesiKonzola.ToListAsync());
         }
 
-        [HttpGet("GetBiznesiKonzolaById")]
+        [HttpGet("getBiznesiKonzolaById")]
         public async Task<ActionResult<BiznesiKonzola>> GetBiznesiKonzolaById(int id)
         {
             var dbBiznesiKonzola = await _context.BiznesiKonzola.FindAsync(id);
@@ -32,7 +32,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbBiznesiKonzola);
         }
 
-        [HttpPost("ShtoBiznesiKonzola")]
+        [HttpPost("shtoBiznesiKonzola")]
         public async Task<ActionResult<BiznesiKonzolaDTO>> ShtoBiznes(BiznesiKonzolaDTO biznesiKonzolaDTO)
         {
             if (biznesiKonzolaDTO == null)
@@ -51,7 +51,7 @@ namespace GameWatchAPI.Controllers
             return Ok(biznesiKonzolaDTO);
         }
 
-        [HttpPut("UpdateBiznesiKonzola")]
+        [HttpPut("updateBiznesiKonzola")]
         public async Task<ActionResult> UpdateBiznesiKonzola(int id, BiznesiKonzolaDTO biznesiKonzolaDTO)
         {
             var dbBiznesiKonzola = await _context.BiznesiKonzola.FindAsync(id);
@@ -70,7 +70,7 @@ namespace GameWatchAPI.Controllers
             return Ok("BiznesKonzola u perditesua me sukses!");
         }
 
-        [HttpDelete("FshijBiznesiKonzola")]
+        [HttpDelete("fshijBiznesiKonzola")]
         public async Task<ActionResult> FshijBiznesiKonzola(int id)
         {
             var dbBiznesiKonzola = await _context.BiznesiKonzola.FindAsync(id);

@@ -8,6 +8,7 @@ namespace GameWatchAPI.Models
         public int Id { get; set; }
         public string FillimiLojes { get; set; } = null!;
         public string? MbarimiLojes { get; set; }
+        public string? DateCreated { get; set; }
         public int NrLojtareve { get; set; }
         public int? BiznesiKonzola { get; set; }
         public int VideoLojaId { get; set; }

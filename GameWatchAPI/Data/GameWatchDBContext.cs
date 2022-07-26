@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameWatchAPI.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace GameWatchAPI.Data
 {
-    public partial class GameWatchDBContext : DbContext
+    public partial class GameWatchDBContext : IdentityDbContext<Useri, IdentityRole<int>, int>
     {
         public GameWatchDBContext()
         {
@@ -24,7 +26,8 @@ namespace GameWatchAPI.Data
         public virtual DbSet<Fatura> Fatura { get; set; } = null!;
         public virtual DbSet<Konzola> Konzola { get; set; } = null!;
         public virtual DbSet<Lokali> Lokali { get; set; } = null!;
-        public virtual DbSet<Stafi> Stafi { get; set; } = null!;
+        public virtual DbSet<UserRole> UserRole { get; set; } = null!;
+        public virtual DbSet<Useri> Useri { get; set; } = null!;
         public virtual DbSet<VideoLoja> VideoLoja { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -38,9 +41,10 @@ namespace GameWatchAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Biznesi>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Biznesi__A9D105340FDEAC6D")
+                entity.HasIndex(e => e.Email, "UQ__Biznesi__A9D1053477B768F0")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -81,12 +85,12 @@ namespace GameWatchAPI.Data
                 entity.HasOne(d => d.Konzola)
                     .WithMany(p => p.BiznesiKonzola)
                     .HasForeignKey(d => d.KonzolaId)
-                    .HasConstraintName("FK__BiznesiKo__Konzo__300424B4");
+                    .HasConstraintName("FK__BiznesiKo__Konzo__48CFD27E");
 
                 entity.HasOne(d => d.Lokali)
                     .WithMany(p => p.BiznesiKonzola)
                     .HasForeignKey(d => d.LokaliId)
-                    .HasConstraintName("FK__BiznesiKo__Lokal__30F848ED");
+                    .HasConstraintName("FK__BiznesiKo__Lokal__49C3F6B7");
             });
 
             modelBuilder.Entity<BizneziKonzolaVideoloja>(entity =>
@@ -98,13 +102,13 @@ namespace GameWatchAPI.Data
                 entity.HasOne(d => d.BiznesiKonzolaNavigation)
                     .WithMany(p => p.BizneziKonzolaVideoloja)
                     .HasForeignKey(d => d.BiznesiKonzola)
-                    .HasConstraintName("FK__BizneziKo__Bizne__35BCFE0A");
+                    .HasConstraintName("FK__BizneziKo__Bizne__4E88ABD4");
 
                 entity.HasOne(d => d.VideoLoja)
                     .WithMany(p => p.BizneziKonzolaVideoloja)
                     .HasForeignKey(d => d.VideoLojaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BizneziKo__Video__36B12243");
+                    .HasConstraintName("FK__BizneziKo__Video__4F7CD00D");
             });
 
             modelBuilder.Entity<Cmimorja>(entity =>
@@ -118,7 +122,7 @@ namespace GameWatchAPI.Data
                 entity.HasOne(d => d.Biznesi)
                     .WithMany(p => p.Cmimorja)
                     .HasForeignKey(d => d.BiznesiId)
-                    .HasConstraintName("FK__Cmimorja__Biznes__398D8EEE");
+                    .HasConstraintName("FK__Cmimorja__Biznes__52593CB8");
             });
 
             modelBuilder.Entity<Fatura>(entity =>
@@ -126,6 +130,10 @@ namespace GameWatchAPI.Data
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.CmimiTotal).HasColumnType("decimal(4, 2)");
+
+                entity.Property(e => e.DateCreated)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.FillimiLojes)
                     .HasMaxLength(20)
@@ -142,18 +150,18 @@ namespace GameWatchAPI.Data
                 entity.HasOne(d => d.BiznesiKonzolaNavigation)
                     .WithMany(p => p.Fatura)
                     .HasForeignKey(d => d.BiznesiKonzola)
-                    .HasConstraintName("FK__Fatura__BiznesiK__3C69FB99");
+                    .HasConstraintName("FK__Fatura__BiznesiK__5535A963");
 
                 entity.HasOne(d => d.Lokali)
                     .WithMany(p => p.Fatura)
                     .HasForeignKey(d => d.LokaliId)
-                    .HasConstraintName("FK__Fatura__LokaliID__3E52440B");
+                    .HasConstraintName("FK__Fatura__LokaliID__571DF1D5");
 
                 entity.HasOne(d => d.VideoLoja)
                     .WithMany(p => p.Fatura)
                     .HasForeignKey(d => d.VideoLojaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Fatura__VideoLoj__3D5E1FD2");
+                    .HasConstraintName("FK__Fatura__VideoLoj__5629CD9C");
             });
 
             modelBuilder.Entity<Konzola>(entity =>
@@ -190,39 +198,56 @@ namespace GameWatchAPI.Data
                 entity.HasOne(d => d.Biznesi)
                     .WithMany(p => p.Lokali)
                     .HasForeignKey(d => d.BiznesiId)
-                    .HasConstraintName("FK__Lokali__BiznesiI__276EDEB3");
+                    .HasConstraintName("FK__Lokali__BiznesiI__398D8EEE");
             });
 
-            modelBuilder.Entity<Stafi>(entity =>
+            modelBuilder.Entity<UserRole>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Stafi__A9D10534885C9DA2")
-                    .IsUnique();
+                entity.HasKey(e => e.RoleName)
+                    .HasName("PK__UserRole__8A2B61618B3A56F9");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.Property(e => e.RoleName)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Useri>(entity =>
+            {
+                entity.HasKey(e => e.UserId)
+                    .HasName("PK__Useri__1788CC4C1D6A05C2");
 
                 entity.Property(e => e.BiznesiId).HasColumnName("BiznesiID");
-
-                entity.Property(e => e.Email)
-                    .HasMaxLength(40)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.Emri)
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.NrTel)
-                    .HasMaxLength(15)
-                    .IsUnicode(false);
+                entity.Property(e => e.LokaliId).HasColumnName("LokaliID");
 
                 entity.Property(e => e.Qyteti)
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
+                entity.Property(e => e.RoleName)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
                 entity.HasOne(d => d.Biznesi)
-                    .WithMany(p => p.Stafi)
+                    .WithMany(p => p.Useri)
                     .HasForeignKey(d => d.BiznesiId)
                     .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK__Stafi__BiznesiID__2B3F6F97");
+                    .HasConstraintName("FK__Useri__BiznesiID__440B1D61");
+
+                entity.HasOne(d => d.Lokali)
+                    .WithMany(p => p.Useri)
+                    .HasForeignKey(d => d.LokaliId)
+                    .HasConstraintName("FK__Useri__LokaliID__4316F928");
+
+                entity.HasOne(d => d.RoleNameNavigation)
+                    .WithMany(p => p.Useri)
+                    .HasForeignKey(d => d.RoleName)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Useri__RoleName__4222D4EF");
             });
 
             modelBuilder.Entity<VideoLoja>(entity =>

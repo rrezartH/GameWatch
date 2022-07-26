@@ -9,7 +9,7 @@ namespace GameWatchAPI.Models
         {
             Cmimorja = new HashSet<Cmimorja>();
             Lokali = new HashSet<Lokali>();
-            Stafi = new HashSet<Stafi>();
+            Useri = new HashSet<Useri>();
         }
 
         public int Id { get; set; }
@@ -22,6 +22,6 @@ namespace GameWatchAPI.Models
 
         public virtual ICollection<Cmimorja> Cmimorja { get; set; }
         public virtual ICollection<Lokali> Lokali { get; set; }
-        public virtual ICollection<Stafi> Stafi { get; set; }
+        public virtual ICollection<Useri> Useri { get; set; }
     }
 }
