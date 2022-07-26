@@ -1,0 +1,8 @@
+$primaryCol: rgb(28, 44, 84);
+$secondaryCol: hsl(173, 50%, 53%);
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

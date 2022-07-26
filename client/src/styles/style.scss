@@ -1,0 +1,19 @@
+@import '../features/landing-page/landing';
+@import '../components/navbar/navbar';
+@import '../components/footer/footer';
+@import './variables';
+
+@mixin flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    @include flexCenter();
+    flex-direction: column;
+    width: 100%;
+    max-width: 1440px;
+    margin: auto;
+    color: white;
+}

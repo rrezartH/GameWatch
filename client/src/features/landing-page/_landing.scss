@@ -1,0 +1,26 @@
+@import '../../styles/variables';
+
+main{
+    @include flexCenter();
+    flex-direction: column;
+    padding-top: 10%;
+    padding-bottom: 10%;
+
+    p{
+        font-family: Pixellari;
+        color: $secondaryCol;
+    }
+
+    .logo{
+        width: 5vw;
+    }
+    button{
+        
+        font-family: Pixellari;
+        color: white;
+        padding: 15px;
+        width: 50%;
+        background-color: $primaryCol;
+        border: none;
+    }
+}

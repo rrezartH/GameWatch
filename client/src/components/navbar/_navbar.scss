@@ -1,0 +1,52 @@
+@import '../../styles/variables';
+
+.navbar{
+    @include flexCenter();
+    width: 100%;
+    flex-direction: column;
+    font-family: Pixellari;
+    .first{
+        @include flexCenter();
+        padding-right: 10%;
+        width: 50%;
+        min-height: 30px;
+        background-color: $primaryCol;
+        .mid{
+            align-items: center;
+            min-height: 30px;
+            width: 30%;
+            background-color: $secondaryCol;
+        }
+    }
+    .second{
+        @include flexCenter();
+        width: 50%;
+        min-height: 30px;
+        background-color: $primaryCol;
+        justify-content: space-around;
+        p{
+            margin: 0;
+        }
+        .mid{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 30px;
+            width: 30%;
+            background-color: $secondaryCol;
+        }
+    }
+    .third{
+        @include flexCenter();
+        padding-right: 5%;
+        width: 50%;
+        min-height: 30px;
+        background-color: $primaryCol;
+        justify-content: center;
+        .mid{
+            min-height: 30px;
+            width: 30%;
+            background-color: $secondaryCol;
+        }
+    }
+}

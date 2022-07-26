@@ -1,0 +1,107 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+main p {
+  font-family: Pixellari;
+  color: hsl(173deg, 50%, 53%);
+}
+main .logo {
+  width: 5vw;
+}
+main button {
+  font-family: Pixellari;
+  color: white;
+  padding: 15px;
+  width: 50%;
+  background-color: rgb(28, 44, 84);
+  border: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+  font-family: Pixellari;
+}
+.navbar .first {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10%;
+  width: 50%;
+  min-height: 30px;
+  background-color: rgb(28, 44, 84);
+}
+.navbar .first .mid {
+  align-items: center;
+  min-height: 30px;
+  width: 30%;
+  background-color: hsl(173deg, 50%, 53%);
+}
+.navbar .second {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  min-height: 30px;
+  background-color: rgb(28, 44, 84);
+  justify-content: space-around;
+}
+.navbar .second p {
+  margin: 0;
+}
+.navbar .second .mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  width: 30%;
+  background-color: hsl(173deg, 50%, 53%);
+}
+.navbar .third {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 5%;
+  width: 50%;
+  min-height: 30px;
+  background-color: rgb(28, 44, 84);
+  justify-content: center;
+}
+.navbar .third .mid {
+  min-height: 30px;
+  width: 30%;
+  background-color: hsl(173deg, 50%, 53%);
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+}
+footer .bg {
+  background-image: url(../../img/landing-page/footer-bg.svg);
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 842px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
+  color: white;
+}/*# sourceMappingURL=style.css.map */
