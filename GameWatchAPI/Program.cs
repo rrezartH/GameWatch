@@ -3,6 +3,7 @@ using GameWatchAPI.Data;
 using GameWatchAPI.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using GameWatchAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,9 @@ builder.Services.AddDbContext<GameWatchDBContext>(options =>
 });
 
 builder.Services.AddIdentityServices(_config);
+
+builder.Services.AddTransient<FaturaService>();
+builder.Services.AddTransient<CmimorjaService>();
 
 var app = builder.Build();
 

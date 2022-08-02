@@ -82,6 +82,10 @@ namespace GameWatchAPI.Data
 
                 entity.Property(e => e.LokaliId).HasColumnName("LokaliID");
 
+                entity.Property(e => e.Statusi)
+                    .IsRequired()
+                    .HasDefaultValueSql("('FALSE')");
+
                 entity.HasOne(d => d.Konzola)
                     .WithMany(p => p.BiznesiKonzola)
                     .HasForeignKey(d => d.KonzolaId)
@@ -131,10 +135,6 @@ namespace GameWatchAPI.Data
 
                 entity.Property(e => e.CmimiTotal).HasColumnType("decimal(4, 2)");
 
-                entity.Property(e => e.DateCreated)
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.FillimiLojes)
                     .HasMaxLength(20)
                     .IsUnicode(false);
@@ -144,6 +144,8 @@ namespace GameWatchAPI.Data
                 entity.Property(e => e.MbarimiLojes)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Oret).HasColumnType("decimal(4, 2)");
 
                 entity.Property(e => e.VideoLojaId).HasColumnName("VideoLojaID");
 

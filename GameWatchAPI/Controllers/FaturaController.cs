@@ -1,6 +1,7 @@
 ﻿using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
+using GameWatchAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,12 @@ namespace GameWatchAPI.Controllers
     public class FaturaController : ControllerBase
     {
         private readonly GameWatchDBContext _context;
+        private readonly FaturaService _faturaService;
 
-        public FaturaController(GameWatchDBContext context)
+        public FaturaController(GameWatchDBContext context, FaturaService faturaService)
         {
             _context = context;
+            _faturaService = faturaService;
         }
 
         [HttpGet("GetFatura")]
@@ -46,25 +49,23 @@ namespace GameWatchAPI.Controllers
         }
 
         [HttpPost("ShtoFature")]
-        public async Task<ActionResult<FaturaDTO>> ShtoFature(FaturaDTO faturaDTO)
+        public async Task<ActionResult<String>> ShtoFature(FaturaDTO faturaDTO)
         {
             if (faturaDTO == null)
                 return BadRequest("Fatura nuk mund te jete e zbrazet!");
 
-            Fatura fatura = new Fatura
-            {
-                FillimiLojes = faturaDTO.FillimiLojes,
-                MbarimiLojes = faturaDTO.MbarimiLojes,
-                NrLojtareve = faturaDTO.NrLojtareve,
-                BiznesiKonzola = faturaDTO.BiznesiKonzola,
-                VideoLojaId = faturaDTO.VideoLojaId,
-                LokaliId = faturaDTO.LokaliId,
-                CmimiTotal = faturaDTO.CmimiTotal
-            };
+            /*            Fatura fatura = new Fatura
+                        {
+                            FillimiLojes = faturaDTO.FillimiLojes,
+                            MbarimiLojes = faturaDTO.MbarimiLojes,
+                            NrLojtareve = faturaDTO.NrLojtareve,
+                            BiznesiKonzola = faturaDTO.BiznesiKonzola,
+                            VideoLojaId = faturaDTO.VideoLojaId,
+                            LokaliId = faturaDTO.LokaliId,
+                            CmimiTotal = faturaDTO.CmimiTotal
+                        };*/
 
-            _context.Fatura.Add(fatura);
-
-            await _context.SaveChangesAsync();
+            await _faturaService.AddFaturaAsync(faturaDTO);
 
             return Ok(faturaDTO);
         }
@@ -79,8 +80,6 @@ namespace GameWatchAPI.Controllers
             if (faturaDTO == null)
                 return BadRequest("Fatura nuk mund te jete e zbrazet!");
 
-            if (!faturaDTO.FillimiLojes.Trim().Equals(""))
-                dbFatura.FillimiLojes = faturaDTO.FillimiLojes;
             if (!faturaDTO.MbarimiLojes.Trim().Equals(""))
                 dbFatura.MbarimiLojes = faturaDTO.MbarimiLojes;
             if (faturaDTO.NrLojtareve != 0)

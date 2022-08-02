@@ -16,13 +16,13 @@ namespace GameWatchAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("GetCmimorja")]
+        [HttpGet("get-cmimorja")]
         public async Task<ActionResult<List<Cmimorja>>> GetCmimorja()
         {
             return Ok(await _context.Cmimorja.ToListAsync());
         }
 
-        [HttpGet("GeCmimorjaById")]
+        [HttpGet("get-cmimorja-by-id")]
         public async Task<ActionResult<Cmimorja>> GetCmimorjaById(int id)
         {
             var dbCmimorja = await _context.Cmimorja.FindAsync(id);
@@ -32,7 +32,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbCmimorja);
         }
 
-        [HttpPost("ShtoCmimorja")]
+        [HttpPost("shto-cmimorja")]
         public async Task<ActionResult<CmimorjaDTO>> ShtoBiznes(CmimorjaDTO cmimorjaDTO)
         {
             if (cmimorjaDTO == null)

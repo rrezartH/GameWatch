@@ -15,6 +15,7 @@ namespace GameWatchAPI.Models
         public string Emri { get; set; } = null!;
         public int KonzolaId { get; set; }
         public int LokaliId { get; set; }
+        public bool? Statusi { get; set; }
 
         public virtual Konzola Konzola { get; set; } = null!;
         public virtual Lokali Lokali { get; set; } = null!;

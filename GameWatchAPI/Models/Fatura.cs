@@ -6,9 +6,9 @@ namespace GameWatchAPI.Models
     public partial class Fatura
     {
         public int Id { get; set; }
-        public string FillimiLojes { get; set; } = null!;
+        public string FillimiLojes { get; set; } = DateTime.Now.ToString();
         public string? MbarimiLojes { get; set; }
-        public string? DateCreated { get; set; }
+        public decimal? Oret { get; set; }
         public int NrLojtareve { get; set; }
         public int? BiznesiKonzola { get; set; }
         public int VideoLojaId { get; set; }
