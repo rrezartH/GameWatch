@@ -25,6 +25,13 @@ builder.Services.AddDbContext<GameWatchDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors(opt => {
+    opt.AddPolicy("CorsPolicy", policy => {
+        policy.AllowAnyMethod().AllowCredentials().AllowAnyHeader().WithOrigins("http://localhost:3000");
+    });
+});
+
+
 builder.Services.AddIdentityServices(_config);
 
 builder.Services.AddTransient<FaturaService>();
@@ -40,6 +47,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 /*app.UseAuthentication();*/
 app.UseAuthorization();

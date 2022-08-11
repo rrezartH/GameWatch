@@ -17,13 +17,13 @@ namespace GameWatchAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("getBiznesin")]
+        [HttpGet("get-bizneset")]
         public async Task<ActionResult<List<Biznesi>>> GetBiznesin()
         {
             return Ok(await _context.Biznesi.ToListAsync());
         }
 
-        [HttpGet("getBiznesinById")]
+        [HttpGet("get-biznesin-by-id")]
         public async Task<ActionResult<Biznesi>> GetBiznesiById(int id)
         {
             var dbBiznesi = await _context.Biznesi.FindAsync(id);
@@ -33,7 +33,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbBiznesi);
         }
 
-        [HttpPost("shtoBiznesin")]
+        [HttpPost("shto-biznes")]
         public async Task<ActionResult<BiznesiDTO>> ShtoBiznes(BiznesiDTO biznesiDTO)
         {
             if (biznesiDTO == null)
@@ -55,7 +55,7 @@ namespace GameWatchAPI.Controllers
             return Ok(biznesiDTO);
         }
 
-        [HttpPut("updateBiznesin")]
+        [HttpPut("update-biznesin")]
         public async Task<ActionResult> UpdateBiznesin(int id, BiznesiDTO biznesiDTO)
         {
             var dbBiznesi = await _context.Biznesi.FindAsync(id);
@@ -80,7 +80,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Biznesi u perditesua me sukses!");
         }
 
-        [HttpDelete("fshijBiznesin")]
+        [HttpDelete("fshij-biznesin")]
         public async Task<ActionResult> FshijBiznesin(int id)
         {
             var dbBiznesi = await _context.Biznesi.FindAsync(id);
