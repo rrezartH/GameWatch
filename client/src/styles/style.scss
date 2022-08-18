@@ -15,5 +15,12 @@
     width: 100%;
     max-width: 1440px;
     margin: auto;
-    color: white;
+    color: $black;
+
+    button{
+        color: white;
+        background-color: $primaryCol;
+        border: 0;
+        height: 30px;
+    }
 }

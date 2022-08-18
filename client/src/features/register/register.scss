@@ -1,0 +1,32 @@
+@import '../../styles/variables';
+
+.register-form{
+   background-color: $secondaryCol;
+    color: primaryCol;
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 10vw;
+    min-height: 10vw;
+    box-shadow: $primaryCol 10px 10px;
+
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 50px;
+
+        label{
+            margin-top: 4%;
+        }
+
+        button{
+            margin-top: 10%;
+        }
+        
+    }
+    
+
+}

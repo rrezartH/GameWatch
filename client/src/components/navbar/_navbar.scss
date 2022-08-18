@@ -5,6 +5,13 @@
     width: 100%;
     flex-direction: column;
     font-family: Pixellari;
+    color: white;
+    a{
+        color: inherit;
+        text-decoration: inherit;
+
+    }
+
     .first{
         @include flexCenter();
         padding-right: 10%;
