@@ -18,7 +18,7 @@ export default function Navbar() {
                     <Link to="./Register"><p>Regjistrohu</p></Link>
                 </div>
                 <div className="third">
-                    <div className="mid"></div>
+                    <div className="mid"><Link to="./Dashboard">...</Link></div>
                 </div>
             </div>
         </>

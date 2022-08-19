@@ -8,6 +8,7 @@ import LandingPage from './features/landing-page/landing-page';
 import Navbar from './components/navbar/navbar';
 import Footer from './components/footer/footer';
 import Register from './features/register/register';
+import Dashboard from './features/dashboard/dashboard';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path='/' element={<LandingPage />} />
           <Route path='/Register' element={<Register />} />
+          <Route path='/Dashboard/*' element={<Dashboard />} />
         </Routes>
       </div>
       <Footer />

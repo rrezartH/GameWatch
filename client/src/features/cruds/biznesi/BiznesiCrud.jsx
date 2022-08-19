@@ -14,11 +14,35 @@ const BiznesiCrud = () => {
 
   return (
     <>
-    {bizneset.map(biznesi => (
-      <ul key={biznesi.id} className="list" color='black'>
-        <li>{biznesi.emri}</li>
-      </ul>
-    ))}
+      <h3>Bizneset</h3>
+      <div class="table-wrapper">
+        <table class="fl-table">
+          <thead>
+              <tr>
+                <th>ID</th>
+                <th>Emri</th>
+                <th>Email</th>
+                <th>Telefoni</th>
+                <th>Qyteti</th>
+                <th>Cmimorja</th>
+                <th>Lokalet</th>
+              </tr>
+          </thead>
+          <tbody>
+            {bizneset.map(biznesi => (
+              <tr key={biznesi.id}>
+                <td>{biznesi.id}</td>
+                <td>{biznesi.emri}</td>
+                <td>{biznesi.email}</td>
+                <td>{biznesi.nrTel}</td>
+                <td>{biznesi.qyteti}</td>
+                <td>{biznesi.adresa}</td>
+                <td>Shfaq</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }

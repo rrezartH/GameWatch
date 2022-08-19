@@ -15,11 +15,10 @@ main{
         width: 5vw;
     }
     button{
-        
         font-family: Pixellari;
         color: white;
-        padding: 15px;
         width: 50%;
+        height: 40px !important;
         background-color: $primaryCol;
         border: none;
         cursor: pointer;

@@ -1,0 +1,18 @@
+@import '../../styles/variables';
+
+.dashboard-nav{
+    display: grid;
+    width: 100%;
+    justify-items: end;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, 20%);
+
+    a{
+        font-family: Pixellari;
+        font-size: 1rem;
+        padding: 10px;
+        color: white;
+        background-color: $primaryCol;
+    }
+
+}

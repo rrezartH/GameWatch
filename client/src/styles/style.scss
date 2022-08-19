@@ -22,5 +22,12 @@
         background-color: $primaryCol;
         border: 0;
         height: 30px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    a{
+        color: inherit;
+        text-decoration: inherit;
     }
 }
