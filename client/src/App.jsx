@@ -1,9 +1,8 @@
 import './App.css';
 import './styles/style.scss'
 import './styles/_variables.scss'
-
 import {Route, Routes} from "react-router-dom"
-
+import { GWProvider } from './context/GWContext';
 import LandingPage from './features/landing-page/landing-page';
 import Navbar from './components/navbar/navbar';
 import Footer from './components/footer/footer';
@@ -12,7 +11,7 @@ import Dashboard from './features/dashboard/dashboard';
 
 function App() {
   return (
-    <>
+    <GWProvider>
       <div className="container">
         <Navbar />
         <Routes>
@@ -22,7 +21,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </>
+    </GWProvider>
   );
 }
 

@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import agent from '../../../api/agents'
+import React, { useContext } from 'react'
 import '../../cruds/crudStyles.scss'
+import { GWContext } from '../../../context/GWContext'  
 
 const BiznesiCrud = () => {
 
-  const [bizneset, setBizneset] = useState([])
-
-  useEffect(() => {
-    agent.Bizneset.list().then(response => {
-      setBizneset(response);
-    })
-  },[])
+  const { bizneset } = useContext(GWContext)
 
   return (
     <>
       <h3>Bizneset</h3>
-      <div class="table-wrapper">
-        <table class="fl-table">
+      <div className="table-wrapper">
+        <table className="fl-table">
           <thead>
               <tr>
                 <th>ID</th>
@@ -24,8 +18,11 @@ const BiznesiCrud = () => {
                 <th>Email</th>
                 <th>Telefoni</th>
                 <th>Qyteti</th>
+                <th>Adresa</th>
                 <th>Cmimorja</th>
                 <th>Lokalet</th>
+                <th>Update</th>
+                <th>Delete</th>
               </tr>
           </thead>
           <tbody>
@@ -38,6 +35,9 @@ const BiznesiCrud = () => {
                 <td>{biznesi.qyteti}</td>
                 <td>{biznesi.adresa}</td>
                 <td>Shfaq</td>
+                <td>Shfaq</td>
+                <td><button>Update</button></td>
+                <td><button>Delete</button></td>
               </tr>
             ))}
           </tbody>
