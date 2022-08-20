@@ -17,13 +17,13 @@ namespace GameWatchAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("GetKonzola")]
+        [HttpGet("get-konzolat")]
         public async Task<ActionResult<List<Konzola>>> GetKonzola()
         {
             return Ok(await _context.Konzola.ToListAsync());
         }
 
-        [HttpGet("GetKonzolaById")]
+        [HttpGet("get-konzola-by-id")]
         public async Task<ActionResult<Konzola>> GetKonzolaById(int id)
         {
             var dbKonzola = await _context.Konzola.FindAsync(id);
@@ -33,7 +33,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbKonzola);
         }
 
-        [HttpGet("GetKonzolaByEmri")]
+        [HttpGet("get-konzola-by-emri")]
         public async Task<ActionResult<Konzola>> GetKonzolaByEmri(string modeli)
         {
             var dbKonzola = await _context.Konzola.Where(k => k.Modeli.Equals(modeli)).FirstOrDefaultAsync();
@@ -43,7 +43,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbKonzola);
         }
 
-        [HttpPost("ShtoKonzola")]
+        [HttpPost("shto-konzola")]
         public async Task<ActionResult<Konzola>> ShtoKonzola(KonzolaDTO konzolaDTO)
         {
             if (konzolaDTO == null)
@@ -61,7 +61,7 @@ namespace GameWatchAPI.Controllers
             return Ok(konzolaDTO);
         }
 
-        [HttpPut("UpdateKonzola")]
+        [HttpPut("update-konzola")]
         public async Task<ActionResult> UpdateKonzola(int id, KonzolaDTO konzolaDTO)
         {
             var dbKonzola = await _context.Konzola.FindAsync(id);
@@ -76,7 +76,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Konzola u perditesua me sukses!");
         }
 
-        [HttpDelete("FshijKonzola")]
+        [HttpDelete("fshij-konzola")]
         public async Task<ActionResult> FshijKonzola(int id)
         {
             var dbKonzola = await _context.Konzola.FindAsync(id);

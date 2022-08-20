@@ -16,13 +16,13 @@ namespace GameWatchAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("GetBiznesiKonzola")]
+        [HttpGet("get-biznesi-konzola-videolojat")]
         public async Task<ActionResult<List<BizneziKonzolaVideoloja>>> GetBizneziKonzolaVideoloja()
         {
             return Ok(await _context.BizneziKonzolaVideoloja.ToListAsync());
         }
 
-        [HttpGet("GetBizneziKonzolaVideolojaId")]
+        [HttpGet("get-biznesi-konzola-videoloja-by-id")]
         public async Task<ActionResult<BizneziKonzolaVideoloja>> GetBBizneziKonzolaVideolojaById(int id)
         {
             var dbBizneziKonzolaVideoloja = await _context.BizneziKonzolaVideoloja.FindAsync(id);
@@ -32,7 +32,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbBizneziKonzolaVideoloja);
         }
 
-        [HttpPost("ShtoBiznesiKonzola")]
+        [HttpPost("shto-biznesi-konzola-videoloja")]
         public async Task<ActionResult<BiznesiKonzolaVideolojaDTO>> ShtoBiznes(BiznesiKonzolaVideolojaDTO biznesiKonzolaVideolojaDTO)
         {
             if (biznesiKonzolaVideolojaDTO == null)
@@ -51,7 +51,7 @@ namespace GameWatchAPI.Controllers
             return Ok(biznesiKonzolaVideolojaDTO);
         }
 
-        [HttpPut("UpdateBizneziKonzolaVideoloja")]
+        [HttpPut("update-biznesi-konzola-videoloja")]
         public async Task<ActionResult> UpdateBizneziKonzolaVideoloja(int id, BiznesiKonzolaVideolojaDTO biznesiKonzolaVideolojaDTO)
         {
             var dbBizneziKonzolaVideoloja = await _context.BizneziKonzolaVideoloja.FindAsync(id);
@@ -63,13 +63,12 @@ namespace GameWatchAPI.Controllers
             if (biznesiKonzolaVideolojaDTO.VideoLojaId != 0)
                 dbBizneziKonzolaVideoloja.VideoLojaId = biznesiKonzolaVideolojaDTO.VideoLojaId;
 
-
             await _context.SaveChangesAsync();
 
             return Ok("BiznesiKonzolaVideoloja u perditesua me sukses!");
         }
 
-        [HttpDelete("FshijBiznesiKonzolaVideoloja")]
+        [HttpDelete("fshij-biznesi-konzola-videoloja")]
         public async Task<ActionResult> FshijBiznesiKonzolaVideoloja(int id)
         {
             var dbBizneziKonzolaVideoloja = await _context.BizneziKonzolaVideoloja.FindAsync(id);

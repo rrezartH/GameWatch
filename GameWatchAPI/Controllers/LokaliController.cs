@@ -18,13 +18,13 @@ namespace GameWatchAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("GetLokalet")]
+        [HttpGet("get-lokalet")]
         public async Task<ActionResult<List<Lokali>>> GetLokalet()
         {
             return Ok(await _context.Lokali.ToListAsync());
         }
 
-        [HttpGet("GetLokalin")]
+        [HttpGet("get-lokalin")]
         public async Task<ActionResult<Lokali>> GetLokali(int id)
         {
             var dbLokali = await _context.Lokali.FindAsync(id);
@@ -34,7 +34,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbLokali);
         }
 
-        [HttpGet("GetLokalinByBiznesId")]
+        [HttpGet("get-lokalin-by-biznesi-id")]
         public async Task<ActionResult<List<Lokali>>> GetLokalinByBiznesId(int biznesID)
         {
             List<Lokali> Lokalet = await _context.Lokali.Where(l => l.BiznesiId == biznesID).ToListAsync();
@@ -45,7 +45,7 @@ namespace GameWatchAPI.Controllers
             return Ok(Lokalet);
         }
 
-        [HttpPost("ShtoLokalin")]
+        [HttpPost("shto-lokali")]
         public async Task<ActionResult<Lokali>> ShtoLokali(LokaliDTO lokaliDTO)
         {
             if (lokaliDTO == null)
@@ -66,7 +66,7 @@ namespace GameWatchAPI.Controllers
             return Ok(lokaliDTO);
         }
 
-        [HttpPut("UpdateLokalin")]
+        [HttpPut("update-lokali")]
         public async Task<ActionResult> UpdateLokalin(int id, LokaliDTO lokaliDTO)
         {
             var dbLokali = await _context.Lokali.FindAsync(id);
@@ -89,7 +89,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Lokali u perditesua me sukses!");
         }
 
-        [HttpDelete("FshijLokalin")]
+        [HttpDelete("fshij-lokalin")]
         public async Task<ActionResult> FshijLokalin(int id)
         {
             var dbLokali = await _context.Lokali.FindAsync(id);

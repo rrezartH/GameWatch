@@ -539,3 +539,10 @@ C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\r
 C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\GameWatchAPI.pdb
 C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\GameWatchAPI.genruntimeconfig.cache
 C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\ref\GameWatchAPI.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\System.Web.Mvc.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\System.Web.Razor.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\System.Web.Helpers.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\System.Web.WebPages.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll

@@ -20,13 +20,13 @@ namespace GameWatchAPI.Controllers
             _faturaService = faturaService;
         }
 
-        [HttpGet("GetFatura")]
+        [HttpGet("get-faturat")]
         public async Task<ActionResult<List<Fatura>>> GetFatura()
         {
             return Ok(await _context.Fatura.ToListAsync());
         }
 
-        [HttpGet("GetFaturaById")]
+        [HttpGet("get-fatura-by-id")]
         public async Task<ActionResult<Fatura>> GetFaturaByID(int id)
         {
             var dbFatura = await _context.Fatura.FindAsync(id);
@@ -36,7 +36,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbFatura);
         }
 
-        [HttpGet("GetFaturatByLokali")]
+        [HttpGet("get-faturat-by-lokali")]
         public async Task<ActionResult<List<Fatura>>> GetFaturatByLokali(int lokaliId)
         {
             List<Fatura> dbFatura = await _context.Fatura
@@ -48,29 +48,18 @@ namespace GameWatchAPI.Controllers
             return Ok(dbFatura);
         }
 
-        [HttpPost("ShtoFature")]
+        [HttpPost("shto-fatura")]
         public async Task<ActionResult<String>> ShtoFature(FaturaDTO faturaDTO)
         {
             if (faturaDTO == null)
                 return BadRequest("Fatura nuk mund te jete e zbrazet!");
-
-            /*            Fatura fatura = new Fatura
-                        {
-                            FillimiLojes = faturaDTO.FillimiLojes,
-                            MbarimiLojes = faturaDTO.MbarimiLojes,
-                            NrLojtareve = faturaDTO.NrLojtareve,
-                            BiznesiKonzola = faturaDTO.BiznesiKonzola,
-                            VideoLojaId = faturaDTO.VideoLojaId,
-                            LokaliId = faturaDTO.LokaliId,
-                            CmimiTotal = faturaDTO.CmimiTotal
-                        };*/
 
             await _faturaService.AddFaturaAsync(faturaDTO);
 
             return Ok(faturaDTO);
         }
 
-        [HttpPut("UpdateFaturen")]
+        [HttpPut("update-fatura")]
         public async Task<ActionResult<FaturaDTO>> UpdateFaturen(int id, FaturaDTO faturaDTO)
         {
             var dbFatura = await _context.Fatura.FindAsync(id);

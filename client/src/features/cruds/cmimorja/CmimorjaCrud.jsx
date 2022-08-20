@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import { GWContext } from '../../../context/GWContext'  
 import CrudTable from '../../../components/crud-table/CrudTable'
 
-const BiznesiCrud = () => {
+const CmimorjaCrud = () => {
 
-  const { bizneset } = useContext(GWContext)
+  const { cmimorja } = useContext(GWContext)
 
   return (
     <>
-      <h3>Bizneset</h3>
-      <CrudTable apiObjects = {bizneset} />
+      <h3>CmimorjaCrud</h3>
+      <CrudTable apiObjects = {cmimoret} />
     </>
   )
 }
 
-export default BiznesiCrud
+export default CmimorjaCrud

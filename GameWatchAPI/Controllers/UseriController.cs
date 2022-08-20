@@ -17,13 +17,13 @@ namespace GameWatchAPI.Controllers
             _context = context;         
         }
 
-        [HttpGet("getUsers")]
+        [HttpGet("get-users")]
         public async Task<ActionResult<List<Useri>>> GetUsers()
         {
             return Ok(await _context.Useri.ToListAsync());
         }
         
-        [HttpGet("getUserById")]
+        [HttpGet("get-user-by-id")]
         public async Task<ActionResult<Useri>> GetUserById(int id)
         {
             var dbUser = await _context.Useri.FindAsync(id);
@@ -32,7 +32,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbUser);
         }
 
-        [HttpGet("getUsersByBusiness")]
+        [HttpGet("get-users-by-biznesi")]
         public async Task<ActionResult<List<Useri>>> GetUsersByBusiness(int id)
         {
             var dbUsers = await _context.Useri.Where(u => u.BiznesiId == id).ToListAsync();
@@ -42,7 +42,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbUsers);
         }
 
-        [HttpGet("getUsersByLokali")]
+        [HttpGet("get-users-by-lokali")]
         public async Task<ActionResult<List<Useri>>> GetUsersByLokali(int id)
         {
             var dbUsers = await _context.Useri.Where(u => u.LokaliId == id).ToListAsync();
@@ -52,7 +52,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbUsers);
         }
 
-        [HttpPost("shtoUser")]
+        //[HttpPost("shto-user")]
         /*public async Task<ActionResult<Lokali>> ShtoLokali(LokaliDTO lokaliDTO)
         {
             if (lokaliDTO == null)
@@ -73,7 +73,7 @@ namespace GameWatchAPI.Controllers
             return Ok(lokaliDTO);
         }*/
 
-        [HttpPut("updateUser")]
+        [HttpPut("update-user")]
         public async Task<ActionResult> UpdateUser(int id, UserControllerDto userDto)
         {
             var dbUseri = await _context.Useri.FindAsync(id);
@@ -98,7 +98,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Useri u perditesua me sukses!");
         }
 
-        [HttpDelete("fshijUserin")]
+        [HttpDelete("fshij-user")]
         public async Task<ActionResult> FshijUserin(int id)
         {
             var dbUseri = await _context.Useri.FindAsync(id);

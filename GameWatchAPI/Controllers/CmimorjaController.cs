@@ -16,7 +16,7 @@ namespace GameWatchAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("get-cmimorja")]
+        [HttpGet("get-cmimoret")]
         public async Task<ActionResult<List<Cmimorja>>> GetCmimorja()
         {
             return Ok(await _context.Cmimorja.ToListAsync());

@@ -74,3 +74,7 @@ GameWatchAPI/obj/Debug/net6.0/GameWatchAPI.MvcApplicationPartsAssemblyInfo.cs
 GameWatchAPI/obj/staticwebassets.pack.sentinel
 GameWatchAPI/obj/Debug/net6.0/GameWatchAPI.csproj.FileListAbsolute.txt
 GameWatchAPI/obj/staticwebassets.pack.sentinel
+GameWatchAPI/bin/Debug/net6.0/GameWatchAPI.exe
+.gitignore
+.gitignore
+.gitignore

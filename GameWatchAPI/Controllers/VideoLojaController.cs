@@ -17,13 +17,13 @@ namespace GameWatchAPI.Controllers
             _context = context; 
         }
 
-        [HttpGet("GetVideoLojrat")]
+        [HttpGet("get-videlojat")]
         public async Task<ActionResult<List<VideoLoja>>> GetVideoLojrat()
         {
             return Ok(await _context.VideoLoja.ToListAsync());
         }
 
-        [HttpGet("GetVideoLojenById")]
+        [HttpGet("get-videoloja-by-id")]
         public async Task<ActionResult<VideoLoja>> GetVideoLojaById(string emri)
         {
             var dbVideoLoja = await _context.VideoLoja.FindAsync(emri);
@@ -33,7 +33,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbVideoLoja);
         }
 
-        [HttpGet("GetVideoLojratByPlayStation")]
+        [HttpGet("get-videolojat-by-emri")]
         public async Task<ActionResult<List<VideoLoja>>> GetVideoLojratByEmri(string emriLojes)
         {
             var dbVideoLoja = await _context.VideoLoja.Where(v => v.Emri.Equals(emriLojes)).FirstOrDefaultAsync();
@@ -43,7 +43,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbVideoLoja);
         }
 
-        [HttpPost("ShtoVideolojen")]
+        [HttpPost("shto-videoloje")]
         public async Task<ActionResult<VideoLojaDTO>> ShtoVideoLojen(VideoLojaDTO videoLojaDTO)
         {
             if (videoLojaDTO == null || videoLojaDTO.Emri.Equals(""))
@@ -61,7 +61,7 @@ namespace GameWatchAPI.Controllers
             return Ok(videoLojaDTO);
         }
 
-        [HttpPut("UpdateVideolojen")]
+        [HttpPut("update-videoloje")]
         public async Task<ActionResult> UpdateVideolojen(int id, VideoLojaDTO videoLojaDTO)
         {
             var dbVideoLoja = await _context.VideoLoja.FindAsync(id);
@@ -76,7 +76,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Videoloja u perditesua me sukses!");
         }
 
-        [HttpDelete("FshijVideolojen")]
+        [HttpDelete("fshij-videoloje")]
         public async Task<ActionResult> FshijVideolojen(int id)
         {
             var dbVideoLoja = await _context.VideoLoja.FindAsync(id);
