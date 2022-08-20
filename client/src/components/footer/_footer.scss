@@ -2,15 +2,20 @@
 
 footer{
     @include flexCenter();
+    align-items: center;
     width: 100%;
-    margin: 0;
-
-
+    background-color: $secondaryCol;  
+    position:relative;
+    left:0;
+    bottom:0;
+    right:0;  
     .bg{
-    background-image: url(../../img/landing-page/footer-bg.svg);
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 842px;
+        background-image: url(../../img/landing-page/footer-bg.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 100%;
+        height: 370px;
+        margin-top: -10% ;
 
     }
 }

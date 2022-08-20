@@ -1,18 +1,15 @@
 @import '../../styles/variables';
 
 .dashboard-nav{
+    padding-top: 4%;
     display: grid;
-    width: 100%;
-    justify-items: end;
+    width: 80%;
+    justify-content: space-around;
     align-items: center;
-    grid-template-columns: repeat(auto-fit, 20%);
+    grid-template-columns: repeat(auto-fit, 100px);
 
-    a{
-        font-family: Pixellari;
-        font-size: 1rem;
-        padding: 10px;
-        color: white;
-        background-color: $primaryCol;
+    button{
+        margin: 10px 0px;
     }
 
 }

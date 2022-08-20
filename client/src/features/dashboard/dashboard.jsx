@@ -12,20 +12,18 @@ import BiznesiKonzolaVideolojaCrud from '../cruds/biznesiKonzolaVideoloja/Biznes
 const Dashboard = () => {
   return (
     <>
-        <h3>Dashboard</h3>
-
         <div className="dashboard-nav">
-            <Link to="./Bizneset">Bizneset</Link>
-            <Link to="./Lokalet">Lokalet</Link>
-            <Link to="./Konzolat">Konzolat</Link>
-            <Link to="./BiznesiKonzolat">BiznesiKonzolat</Link>
-            <Link to="./BizneziKonzolaVideolojat">BizneziKonzolaVideolojat</Link>
-            <Link to="./Faturat">Faturat</Link>
-            <Link to="./VideoLojat">VideoLojat</Link>
+            <button><Link to="./">Bizneset</Link></button>
+            <button><Link to="./Lokalet">Lokalet</Link></button>
+            <button><Link to="./Konzolat">Konzolat</Link></button>
+            <button><Link to="./BiznesiKonzolat">BizKon</Link></button>
+            <button><Link to="./BizneziKonzolaVideolojat">BizKonVid</Link></button>
+            <button><Link to="./Faturat">Faturat</Link></button>
+            <button><Link to="./VideoLojat">VideoLojat</Link></button>
         </div>
 
         <Routes>
-            <Route path='/Bizneset' element={<BiznesiCrud />} />
+            <Route path='/' element={<BiznesiCrud />} />
             <Route path='/Lokalet' element={<LokaliCrud />} />
             <Route path='/Konzolat' element={<KonzolatCrud />} />
             <Route path='/BiznesiKonzolat' element={<BiznesiKonzolaCrud />} />
