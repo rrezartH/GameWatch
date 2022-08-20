@@ -12,31 +12,38 @@ const requests ={
 }
 
 const Bizneset = {
-    list: () => requests.get('/Biznesi/get-bizneset')
+    list: () => requests.get('/Biznesi/get-bizneset'),
+    delete: (id) => requests.del(`Biznesi/fshij-biznesin/${id}`)
 }
 const Lokalet = {
-    list: () => requests.get('/Lokali/get-lokalet')
+    list: () => requests.get('/Lokali/get-lokalet'),
+    delete: (id) => requests.del(`Lokali/fshij-lokalin/${id}`)
 }
 const Konzolat = {
-    list: () => requests.get('/Konzola/get-konzolat')
+    list: () => requests.get('/Konzola/get-konzolat'),
+    delete: (id) => requests.del(`Konzola/fshij-konzola/${id}`)
 }
 const BiznesiKonzolat = {
-    list: () => requests.get('/BiznesiKonzola/get-biznesi-konzolat')
+    list: () => requests.get('/BiznesiKonzola/get-biznesi-konzolat'),
+    delete: (id) => requests.del(`BiznesiKonzola/fshij-biznesi-konzola/${id}`)
 }
 const BizneziKonzolaVideolojat = {
-    list: () => requests.get('/BizneziKonzolaVideoloja/get-biznesi-konzola-videolojat')
+    list: () => requests.get('/BizneziKonzolaVideoloja/get-biznesi-konzola-videolojat'),
+    delete: (id) => requests.del(`BizneziKonzolaVideoloja/fshij-biznesi-konzola-videoloja/${id}`)
 }
 const Cmimoret = {
-    list: () => requests.get('/Cmimorja/get-cmimoret')
+    list: () => requests.get('/Cmimorja/get-cmimoret'),
+    delete: (id) => requests.del(`Cmimorja/fshij-cmimore/${id}`)
 }
 const Faturat = {
-    list: () => requests.get('/Fatura/get-faturat')
+    list: () => requests.get('/Fatura/get-faturat'),
 }
 const Users = {
     list: () => requests.get('/Users/get-users')
 }
 const VideoLojat = {
-    list: () => requests.get('/VideoLoja/get-videlojat')
+    list: () => requests.get('/VideoLoja/get-videlojat'),
+    delete: (id) => requests.del(`VideoLoja/fshij-videoloje/${id}`)
 }
 const agent = {
     Bizneset,

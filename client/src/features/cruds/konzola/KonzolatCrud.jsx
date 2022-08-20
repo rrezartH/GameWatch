@@ -7,7 +7,7 @@ const KonzolatCrud = () => {
     return (
         <>
             <h3>Konzolat</h3>
-            <CrudTable apiObjects = {konzolat} />
+            <CrudTable apiObjects = {konzolat} objectName= "Konzolat"/>
         </>
     )
 }

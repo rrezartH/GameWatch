@@ -9,7 +9,7 @@ const BiznesiKonzolaVideolojaCrud = () => {
   return (
     <>
       <h3>BiznesiKonzolaVideolojaCrud</h3>
-      <CrudTable apiObjects = {bizneziKonzolaVideolojat} />
+      <CrudTable apiObjects = {bizneziKonzolaVideolojat} objectName="BizneziKonzolaVideolojat"/>
     </>
   )
 }

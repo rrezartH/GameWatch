@@ -7,7 +7,7 @@ const LokaliCrud = () => {
   return (
     <>
       <h3>Lokalet</h3>
-      <CrudTable apiObjects = {lokalet} />
+      <CrudTable apiObjects = {lokalet} objectName="Lokalet"/>
     </>
   )
 }

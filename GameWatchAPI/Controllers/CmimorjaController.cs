@@ -51,7 +51,7 @@ namespace GameWatchAPI.Controllers
             return Ok(cmimorjaDTO);
         }
 
-        [HttpPut("UpdateCmimoren")]
+        [HttpPut("update-cmimore")]
         public async Task<ActionResult> UpdateCmimoren(int id, CmimorjaDTO cmimorjaDTO)
         {
             var dbCmimorja = await _context.Cmimorja.FindAsync(id);
@@ -71,7 +71,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Cmimorja u perditesua me sukses!");
         }
 
-        [HttpDelete("FshijCmimoren")]
+        [HttpDelete("fshij-cmimore/{id}")]
         public async Task<ActionResult> FshijCmimoren(int id)
         {
             var dbCmimorja = await _context.Cmimorja.FindAsync(id);

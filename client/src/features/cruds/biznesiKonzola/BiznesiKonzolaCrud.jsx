@@ -9,7 +9,7 @@ const BiznesiKonzolaCrud = () => {
   return (
     <>
       <h3>Bizneset</h3>
-      <CrudTable apiObjects = {biznesiKonzolat} />
+      <CrudTable apiObjects = {biznesiKonzolat} objectName="BiznesiKonzolat" />
     </>
   )
 }

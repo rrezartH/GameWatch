@@ -80,7 +80,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Biznesi u perditesua me sukses!");
         }
 
-        [HttpDelete("fshij-biznesin")]
+        [HttpDelete("fshij-biznesin/{id}")]
         public async Task<ActionResult> FshijBiznesin(int id)
         {
             var dbBiznesi = await _context.Biznesi.FindAsync(id);

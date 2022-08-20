@@ -76,7 +76,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Videoloja u perditesua me sukses!");
         }
 
-        [HttpDelete("fshij-videoloje")]
+        [HttpDelete("fshij-videoloje/{id}")]
         public async Task<ActionResult> FshijVideolojen(int id)
         {
             var dbVideoLoja = await _context.VideoLoja.FindAsync(id);

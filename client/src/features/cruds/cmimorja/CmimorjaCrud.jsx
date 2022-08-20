@@ -9,7 +9,7 @@ const CmimorjaCrud = () => {
   return (
     <>
       <h3>CmimorjaCrud</h3>
-      <CrudTable apiObjects = {cmimoret} />
+      <CrudTable apiObjects = {cmimoret} objectName="Cmimoret"/>
     </>
   )
 }

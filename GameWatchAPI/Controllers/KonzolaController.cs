@@ -76,7 +76,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Konzola u perditesua me sukses!");
         }
 
-        [HttpDelete("fshij-konzola")]
+        [HttpDelete("fshij-konzola/{id}")]
         public async Task<ActionResult> FshijKonzola(int id)
         {
             var dbKonzola = await _context.Konzola.FindAsync(id);

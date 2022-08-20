@@ -89,7 +89,7 @@ namespace GameWatchAPI.Controllers
             return Ok("Lokali u perditesua me sukses!");
         }
 
-        [HttpDelete("fshij-lokalin")]
+        [HttpDelete("fshij-lokalin/{id}")]
         public async Task<ActionResult> FshijLokalin(int id)
         {
             var dbLokali = await _context.Lokali.FindAsync(id);
