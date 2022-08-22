@@ -13,7 +13,8 @@ const requests ={
 
 const Bizneset = {
     list: () => requests.get('/Biznesi/get-bizneset'),
-    delete: (id) => requests.del(`Biznesi/fshij-biznesin/${id}`)
+    delete: (id) => requests.del(`Biznesi/fshij-biznesin/${id}`),
+    create: (values) => requests.post('Biznesi/shto-biznes', values)
 }
 const Lokalet = {
     list: () => requests.get('/Lokali/get-lokalet'),

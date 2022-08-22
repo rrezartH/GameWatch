@@ -1,6 +1,8 @@
 $primaryCol: rgb(28, 44, 84);
 $secondaryCol: hsl(173, 50%, 53%);
 $black: #161616;
+$darkGray: #3f3f3f;
+$backgroundCol: rgba(0, 0, 0, 0.7);  
 
 @mixin flexCenter {
     display: flex;

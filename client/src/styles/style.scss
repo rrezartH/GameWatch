@@ -17,6 +17,7 @@
     margin: auto;
     color: $black;
     padding-bottom: 15%;
+    scroll-behavior: smooth;
 
     button{
         color: white;
@@ -25,6 +26,12 @@
         height: 30px;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
+        transition: all 0.25s ease-out;
+        &:hover {
+            color: white;
+            background-color: $secondaryCol;
+          }
     }
 
     a{

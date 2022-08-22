@@ -4,7 +4,6 @@ import './_crud-table.scss'
 
 function CrudTable(props) {
     const { apiObjects, objectName } = props;
-    const [biznesi, setBiznesi] = useState([])
     const apiObjectKeys = apiObjects.length > 0 ? Object.keys(apiObjects[0]) : "";
     const capitalizeFirst = str => {
         return str.charAt(0).toUpperCase() + str.slice(1);
@@ -14,7 +13,7 @@ function CrudTable(props) {
         const confirmBox = window.confirm(
             "A jeni i sigute se doni te vazhdoni me fshirjen e kesaj te dhene?"
         )
-        if(confirmBox == true){
+        if(confirmBox === true){
             console.log(objectId)
             agent[objectName].delete(objectId)
                 .catch(error => console.log(error));
