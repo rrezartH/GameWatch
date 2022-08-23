@@ -1,31 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import { GWContext } from '../../../context/GWContext';
 import '../../../styles/popup.scss';
 import agent from '../../../api/agents';
-import { FormSelectQytetet, FormInput } from '../../../components/form/input/FormInput';
+import { FormSelectQytetet, FormInput, FormSelect } from '../../../components/form/input/FormInput';
 
-const CreateBiznes = (props) => {
+const CreateLokal = (props) => {
 
-  const [biznesi, setBiznesi] = useState({
-    profilePicture: "",
+  const { bizneset } = useContext(GWContext);
+
+  const [lokali, setLokali] = useState({
     emri:"",
-    email:"",
     nrTel:"",
     qyteti:"",
-    adresa: ""
+    adresa: "",
+    biznesiId: 0
   });
   
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setBiznesi((prev) => {
-      return { ...prev, [name]: value}
-    })
+
+    if(name.toLowerCase().includes("id")) {
+      let intValue = parseInt(value, 10);
+      setLokali((prev) => {
+        return { ...prev, [name]: intValue}
+      });
+    } 
+    else {  
+      setLokali((prev) => {
+        return { ...prev, [name]: value}
+      });
+    }    
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(biznesi);
-    agent.Bizneset.create(biznesi)
+    console.log(lokali);
+    agent.Lokalet.create(lokali)
       .catch(function(error) {
         console.log(error.response.data)
       });
@@ -34,23 +45,15 @@ const CreateBiznes = (props) => {
   return (
     <div className='popup'>
       <div className='popup-inner'>
-        <h3>Shto Biznes</h3>
+        <h3>Shto Lokal</h3>
         <button className='close-btn' onClick={() => props.setShowCreate(!props.showCreate)}>x</button>
         <form onSubmit={handleSubmit} >
-          <FormInput 
+          <FormInput
             required={true} 
-            label="Emri i Biznesit" 
+            label="Emri i Lokali" 
             type="text" 
             name="emri" 
-            placeholder="Emri i Biznesit" 
-            onChange={handleChange}
-            />
-          <FormInput 
-            required={true} 
-            label="Email" 
-            type="email" 
-            name="email" 
-            placeholder="Email" 
+            placeholder="Emri i Lokalit" 
             onChange={handleChange}
             />
           <FormInput 
@@ -74,6 +77,13 @@ const CreateBiznes = (props) => {
             placeholder="Adresa" 
             onChange={handleChange}
             />
+          <FormSelect
+            objects={bizneset}
+            name="biznesiId"
+            label="Biznesi"
+            onChange={handleChange}
+            objectName={"emri"}
+            />
           <button type='submit'>Shto</button>
         </form>
       </div>
@@ -81,4 +91,4 @@ const CreateBiznes = (props) => {
   )
 }
 
-export default CreateBiznes
+export default CreateLokal

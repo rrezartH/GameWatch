@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import agent from '../../api/agents';
 import './_crud-table.scss'
 
@@ -14,7 +14,6 @@ function CrudTable(props) {
             "A jeni i sigute se doni te vazhdoni me fshirjen e kesaj te dhene?"
         )
         if(confirmBox === true){
-            console.log(objectId)
             agent[objectName].delete(objectId)
                 .catch(error => console.log(error));
         }

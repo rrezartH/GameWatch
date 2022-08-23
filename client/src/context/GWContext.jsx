@@ -56,7 +56,7 @@ export const GWProvider = props => {
       bizneziKonzolaVideolojat,
       cmimoret,
       faturat,
-      videoLojat,
+      videoLojat
       } }>
         {props.children}
     </GWContext.Provider>
