@@ -66,7 +66,7 @@ namespace GameWatchAPI.Controllers
             return Ok(lokaliDTO);
         }
 
-        [HttpPut("update-lokali")]
+        [HttpPut("update-lokali/{id}")]
         public async Task<ActionResult> UpdateLokalin(int id, LokaliDTO lokaliDTO)
         {
             var dbLokali = await _context.Lokali.FindAsync(id);

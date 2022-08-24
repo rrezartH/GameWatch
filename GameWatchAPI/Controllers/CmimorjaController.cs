@@ -51,7 +51,7 @@ namespace GameWatchAPI.Controllers
             return Ok(cmimorjaDTO);
         }
 
-        [HttpPut("update-cmimore")]
+        [HttpPut("update-cmimore/{id}")]
         public async Task<ActionResult> UpdateCmimoren(int id, CmimorjaDTO cmimorjaDTO)
         {
             var dbCmimorja = await _context.Cmimorja.FindAsync(id);

@@ -40,7 +40,7 @@ function CrudTable(props) {
                                 apiObjectKeys.map(member => (
                                     <td>{object[member]}</td>
                             )))}
-                            <td><button>Update</button></td>
+                            <td><button type='submit' onClick={() => {props.setShowCreate(!props.showCreate); props.setIsForUpdate(true); props.setObjectId(object.id)}}>Update</button></td>
                             <td><button type='submit' onClick={() => handleDelete(object.id)}>Delete</button></td>
                         </tr>
                     ))}

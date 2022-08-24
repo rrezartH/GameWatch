@@ -61,7 +61,7 @@ namespace GameWatchAPI.Controllers
             return Ok(konzolaDTO);
         }
 
-        [HttpPut("update-konzola")]
+        [HttpPut("update-konzola/{id}")]
         public async Task<ActionResult> UpdateKonzola(int id, KonzolaDTO konzolaDTO)
         {
             var dbKonzola = await _context.Konzola.FindAsync(id);

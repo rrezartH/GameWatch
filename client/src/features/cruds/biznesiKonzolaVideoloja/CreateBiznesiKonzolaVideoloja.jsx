@@ -2,10 +2,11 @@ import React, {useState, useContext} from 'react';
 import { GWContext } from '../../../context/GWContext';
 import '../../../styles/popup.scss';
 import agent from '../../../api/agents';
-import { FormInput, FormSelect } from '../../../components/form/input/FormInput';
+import { FormSelect } from '../../../components/form/input/FormInput';
 
 const CreateBiznesiKonzolaVideoloja = (props) => {
   const {biznesiKonzolat, videoLojat} = useContext(GWContext);
+  const {biznesiKonzolaVideolojaId, isForUpdate} = props;
 
   const [biznesiKonzolaVideoloja, setBiznesiKonzolaVideoloja] = useState({
     biznesiKonzola: 0,
@@ -31,17 +32,24 @@ const CreateBiznesiKonzolaVideoloja = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(biznesiKonzolaVideoloja);
-    agent.BizneziKonzolaVideolojat.create(biznesiKonzolaVideoloja)
-      .catch(function(error) {
-        console.log(error.response.data)
-      });
+
+    if(isForUpdate){
+      agent.BizneziKonzolaVideolojat.update(biznesiKonzolaVideolojaId, biznesiKonzolaVideoloja)
+        .catch((error) => console.log(error))
+    }
+    else{
+      console.log(biznesiKonzolaVideoloja);
+      agent.BizneziKonzolaVideolojat.create(biznesiKonzolaVideoloja)
+        .catch(function(error) {
+          console.log(error.response.data)
+        });
+    }
   }
 
   return (
     <div className='popup'>
       <div className='popup-inner'>
-        <h3>Shto Konzole</h3>
+      <h3>{isForUpdate ? "Update BizKonVid" : "Shto BizKonVid"}</h3>
         <button className='close-btn' onClick={() => props.setShowCreate(!props.showCreate)}>x</button>
         <form onSubmit={handleSubmit} >
           <FormSelect
@@ -50,6 +58,7 @@ const CreateBiznesiKonzolaVideoloja = (props) => {
             label="Emri i Konzoles"
             onChange={handleChange}
             objectName={"emri"}
+            required={!isForUpdate}
             />
           <FormSelect
             objects={videoLojat}
@@ -57,8 +66,9 @@ const CreateBiznesiKonzolaVideoloja = (props) => {
             label="Videoloja"
             onChange={handleChange}
             objectName={"emri"}
+            required={!isForUpdate}
             />
-          <button type='submit'>Shto</button>
+          <button type='submit'>{isForUpdate ? "Update" : "Shto"}</button>
         </form>
       </div>
     </div>

@@ -7,13 +7,28 @@ const CmimorjaCrud = () => {
 
   const { cmimoret } = useContext(GWContext)
   const[showCreate, setShowCreate] = useState(false);
+  const[isForUpdate, setIsForUpdate] = useState(false);
+  const[cmimorjaId, setCmimorjaId] = useState(0);
 
   return (
     <>
       <h3>Cmimoret</h3>
-      <button onClick={() => setShowCreate(!showCreate)}>Shto Cmimore</button>
-      <CrudTable apiObjects = {cmimoret} objectName="Cmimoret"/>
-      {showCreate ? <CreateCmimore showCreate={showCreate} setShowCreate={setShowCreate} /> : null}
+      <button onClick={() => {setShowCreate(!showCreate); 
+                              setIsForUpdate(false)}}>Shto Cmimore</button>
+      <CrudTable 
+        apiObjects={cmimoret} 
+        objectName="Cmimoret"
+        setShowCreate={setShowCreate}
+        setIsForUpdate={setIsForUpdate}
+        setObjectId={setCmimorjaId}
+        />
+      {showCreate ? <CreateCmimore 
+                      showCreate={showCreate} 
+                      setShowCreate={setShowCreate} 
+                      setIsForUpdate={setIsForUpdate}
+                      isForUpdate={isForUpdate}
+                      cmimorjaId={cmimorjaId}
+                      /> : null}
     </>
   )
 }

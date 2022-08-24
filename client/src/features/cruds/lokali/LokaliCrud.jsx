@@ -6,13 +6,29 @@ import CreateLokal from './CreateLokal'
 const LokaliCrud = () => {
     const { lokalet } = useContext(GWContext)
     const[showCreate, setShowCreate] = useState(false);
+    const[isForUpdate, setIsForUpdate] = useState(false);
+    const[lokaliId, setLokaliId] = useState(0);
     
   return (
     <>
       <h3>Lokalet</h3>
-      <button onClick={() => setShowCreate(!showCreate)}>Shto Lokal</button>
-      <CrudTable apiObjects = {lokalet} objectName="Lokalet"/>
-      {showCreate ? <CreateLokal showCreate={showCreate} setShowCreate={setShowCreate} /> : null}
+      <button onClick={() => {setShowCreate(!showCreate); 
+                              setIsForUpdate(false)}}>Shto Lokal</button>
+      <CrudTable 
+        apiObjects={lokalet} 
+        objectName="Lokalet"
+        showCreate={showCreate} 
+        setShowCreate={setShowCreate}
+        setIsForUpdate={setIsForUpdate}
+        setObjectId={setLokaliId}
+      />
+      {showCreate ? <CreateLokal 
+                      showCreate={showCreate} 
+                      setShowCreate={setShowCreate} 
+                      setIsForUpdate={setIsForUpdate}
+                      isForUpdate={isForUpdate}
+                      lokaliId={lokaliId}
+                      /> : null}
     </>
   )
 }

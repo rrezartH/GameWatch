@@ -7,6 +7,7 @@ import { FormSelectQytetet, FormInput, FormSelect } from '../../../components/fo
 const CreateLokal = (props) => {
 
   const { bizneset } = useContext(GWContext);
+  const {lokaliId, isForUpdate} = props;
 
   const [lokali, setLokali] = useState({
     emri:"",
@@ -35,21 +36,28 @@ const CreateLokal = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(lokali);
-    agent.Lokalet.create(lokali)
-      .catch(function(error) {
-        console.log(error.response.data)
-      });
+
+    if(isForUpdate){
+      agent.Lokalet.update(lokaliId, lokali)
+        .catch((error) => console.log(error))
+    }
+    else{
+      console.log(lokali);
+      agent.Lokalet.create(lokali)
+        .catch(function(error) {
+          console.log(error.response.data)
+        });
+    }
   }
 
   return (
     <div className='popup'>
       <div className='popup-inner'>
-        <h3>Shto Lokal</h3>
+        <h3>{isForUpdate ? "Update Lokalin" : "Shto Lokal"}</h3>
         <button className='close-btn' onClick={() => props.setShowCreate(!props.showCreate)}>x</button>
         <form onSubmit={handleSubmit} >
           <FormInput
-            required={true} 
+            required={!isForUpdate} 
             label="Emri i Lokali" 
             type="text" 
             name="emri" 
@@ -57,7 +65,7 @@ const CreateLokal = (props) => {
             onChange={handleChange}
             />
           <FormInput 
-            required={true} 
+            required={!isForUpdate} 
             label="Numri i Telefonit" 
             type="number" 
             name="nrTel" 
@@ -65,12 +73,13 @@ const CreateLokal = (props) => {
             onChange={handleChange}
             />
           <FormSelectQytetet 
+            required={!isForUpdate}
             onChange={handleChange} 
             name="qyteti" 
             defaultValue="Qyteti" 
             />
           <FormInput 
-            required={true} 
+            required={!isForUpdate} 
             label="Adresa" 
             type="text" 
             name="adresa" 
@@ -78,13 +87,14 @@ const CreateLokal = (props) => {
             onChange={handleChange}
             />
           <FormSelect
+              required={!isForUpdate} 
             objects={bizneset}
             name="biznesiId"
             label="Biznesi"
             onChange={handleChange}
             objectName={"emri"}
             />
-          <button type='submit'>Shto</button>
+          <button type='submit'>{isForUpdate ? "Update" : "Shto"}</button>
         </form>
       </div>
     </div>

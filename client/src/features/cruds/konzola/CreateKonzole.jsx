@@ -1,10 +1,11 @@
-import React, {useState, useContext} from 'react';
-import { GWContext } from '../../../context/GWContext';
+import React, {useState} from 'react';
 import '../../../styles/popup.scss';
 import agent from '../../../api/agents';
-import { FormSelectQytetet, FormInput, FormSelect } from '../../../components/form/input/FormInput';
+import { FormInput } from '../../../components/form/input/FormInput';
 
 const CreateKonzole = (props) => {
+
+  const {konzolaId, isForUpdate} = props;
 
   const [konzola, setKonzola] = useState({
     modeli:""
@@ -18,19 +19,27 @@ const CreateKonzole = (props) => {
     });   
   }
 
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(konzola);
-    agent.Konzolat.create(konzola)
-      .catch(function(error) {
-        console.log(error.response.data)
-      });
+
+    if(isForUpdate){
+      agent.Konzolat.update(konzolaId, konzola)
+        .catch((error) => console.log(error))
+    }
+    else{
+      console.log(konzola);
+      agent.Konzolat.create(konzola)
+        .catch(function(error) {
+          console.log(error.response.data)
+        });
+    }
   }
 
   return (
     <div className='popup'>
       <div className='popup-inner'>
-        <h3>Shto Konzole</h3>
+        <h3>{isForUpdate ? "Update Konzolen" : "Shto Konzole"}</h3>
         <button className='close-btn' onClick={() => props.setShowCreate(!props.showCreate)}>x</button>
         <form onSubmit={handleSubmit} >
           <FormInput
@@ -41,7 +50,7 @@ const CreateKonzole = (props) => {
             placeholder="Modeli i Konzoles" 
             onChange={handleChange}
             />
-          <button type='submit'>Shto</button>
+          <button type='submit'>{isForUpdate ? "Update" : "Shto"}</button>
         </form>
       </div>
     </div>

@@ -5,6 +5,8 @@ import { FormSelectQytetet, FormInput } from '../../../components/form/input/For
 
 const CreateBiznes = (props) => {
 
+  const {biznesiId, isForUpdate} = props;
+
   const [biznesi, setBiznesi] = useState({
     profilePicture: "",
     emri:"",
@@ -24,21 +26,28 @@ const CreateBiznes = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(biznesi);
-    agent.Bizneset.create(biznesi)
-      .catch(function(error) {
-        console.log(error.response.data)
-      });
+
+    if(isForUpdate){
+      agent.Bizneset.update(biznesiId, biznesi)
+        .catch((error) => console.log(error))
+    }
+    else{
+      console.log(biznesi);
+      agent.Bizneset.create(biznesi)
+        .catch(function(error) {
+          console.log(error.response.data)
+        });
+    }
   }
 
   return (
     <div className='popup'>
       <div className='popup-inner'>
-        <h3>Shto Biznes</h3>
+        <h3>{isForUpdate ? "Update Biznesin" : "Shto Biznes"}</h3>
         <button className='close-btn' onClick={() => props.setShowCreate(!props.showCreate)}>x</button>
         <form onSubmit={handleSubmit} >
           <FormInput 
-            required={true} 
+            required={!isForUpdate} 
             label="Emri i Biznesit" 
             type="text" 
             name="emri" 
@@ -46,7 +55,7 @@ const CreateBiznes = (props) => {
             onChange={handleChange}
             />
           <FormInput 
-            required={true} 
+            required={!isForUpdate} 
             label="Email" 
             type="email" 
             name="email" 
@@ -54,7 +63,7 @@ const CreateBiznes = (props) => {
             onChange={handleChange}
             />
           <FormInput 
-            required={true} 
+            required={!isForUpdate} 
             label="Numri i Telefonit" 
             type="number" 
             name="nrTel" 
@@ -67,14 +76,14 @@ const CreateBiznes = (props) => {
             defaultValue="Qyteti" 
             />
           <FormInput 
-            required={true} 
+            required={!isForUpdate} 
             label="Adresa" 
             type="text" 
             name="adresa" 
             placeholder="Adresa" 
             onChange={handleChange}
             />
-          <button type='submit'>Shto</button>
+          <button type='submit'>{isForUpdate ? "Update" : "Shto"}</button>
         </form>
       </div>
     </div>

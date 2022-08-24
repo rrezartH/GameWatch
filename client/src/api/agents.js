@@ -14,32 +14,38 @@ const requests ={
 const Bizneset = {
     list: () => requests.get('/Biznesi/get-bizneset'),
     delete: (id) => requests.del(`Biznesi/fshij-biznesin/${id}`),
-    create: (values) => requests.post('Biznesi/shto-biznes', values)
+    create: (values) => requests.post('Biznesi/shto-biznes', values),
+    update: (id, values) => requests.put(`Biznesi/update-biznesin/${id}`, values)
 }
 const Lokalet = {
     list: () => requests.get('/Lokali/get-lokalet'),
     delete: (id) => requests.del(`Lokali/fshij-lokalin/${id}`),
-    create: (values) => requests.post('Lokali/shto-lokali', values)
+    create: (values) => requests.post('Lokali/shto-lokali', values),
+    update: (id, values) => requests.put(`Lokali/update-lokali/${id}`, values)
 }
 const Konzolat = {
     list: () => requests.get('/Konzola/get-konzolat'),
     delete: (id) => requests.del(`Konzola/fshij-konzola/${id}`),
-    create: (values) => requests.post('Konzola/shto-konzola', values)
+    create: (values) => requests.post('Konzola/shto-konzola', values),
+    update: (id, values) => requests.put(`Konzola/update-konzola/${id}`, values)
 }
 const BiznesiKonzolat = {
     list: () => requests.get('/BiznesiKonzola/get-biznesi-konzolat'),
     delete: (id) => requests.del(`BiznesiKonzola/fshij-biznesi-konzola/${id}`),
-    create: (values) => requests.post('BiznesiKonzola/shto-biznesi-konzola', values)
+    create: (values) => requests.post('BiznesiKonzola/shto-biznesi-konzola', values),
+    update: (id, values) => requests.put(`BiznesiKonzola/update-biznesi-konzola/${id}`, values)
 }
 const BizneziKonzolaVideolojat = {
     list: () => requests.get('/BizneziKonzolaVideoloja/get-biznesi-konzola-videolojat'),
     delete: (id) => requests.del(`BizneziKonzolaVideoloja/fshij-biznesi-konzola-videoloja/${id}`),
-    create: (values) => requests.post('BizneziKonzolaVideoloja/shto-biznesi-konzola-videoloja', values)
+    create: (values) => requests.post('BizneziKonzolaVideoloja/shto-biznesi-konzola-videoloja', values),
+    update: (id, values) => requests.put(`BizneziKonzolaVideoloja/update-biznesi-konzola-videoloja/${id}`, values)
 }
 const Cmimoret = {
     list: () => requests.get('/Cmimorja/get-cmimoret'),
     delete: (id) => requests.del(`Cmimorja/fshij-cmimore/${id}`),
-    create: (values) => requests.post('Cmimorja/shto-cmimorja', values)
+    create: (values) => requests.post('Cmimorja/shto-cmimorja', values),
+    update: (id, values) => requests.put(`Cmimorja/update-cmimore/${id}`, values)
 }
 const Faturat = {
     list: () => requests.get('/Fatura/get-faturat'),
@@ -51,7 +57,8 @@ const Users = {
 const VideoLojat = {
     list: () => requests.get('/VideoLoja/get-videlojat'),
     delete: (id) => requests.del(`VideoLoja/fshij-videoloje/${id}`),
-    create: (values) => requests.post('VideoLoja/shto-videoloje', values)
+    create: (values) => requests.post('VideoLoja/shto-videoloje', values),
+    update: (id, values) => requests.put(`VideoLoja/update-videoloje/${id}`, values)
 }
 const agent = {
     Bizneset,

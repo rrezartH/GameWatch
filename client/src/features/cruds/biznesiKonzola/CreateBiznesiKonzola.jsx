@@ -6,6 +6,7 @@ import { FormInput, FormSelect } from '../../../components/form/input/FormInput'
 
 const CreateBiznesiKonzola = (props) => {
   const {lokalet, konzolat} = useContext(GWContext);
+  const {biznesiKonzolaId, isForUpdate} = props;
 
   const [biznesiKonzola, setBiznesiKonzola] = useState({
     emri: "",
@@ -32,21 +33,27 @@ const CreateBiznesiKonzola = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(biznesiKonzola);
-    agent.BiznesiKonzolat.create(biznesiKonzola)
-      .catch(function(error) {
-        console.log(error.response.data)
-      });
+    if(isForUpdate){
+      agent.BiznesiKonzolat.update(biznesiKonzolaId, biznesiKonzola)
+        .catch((error) => console.log(error))
+    }
+    else{
+      console.log(biznesiKonzola);
+      agent.BiznesiKonzolat.create(biznesiKonzola)
+        .catch(function(error) {
+          console.log(error.response.data)
+        });
+    }
   }
 
   return (
     <div className='popup'>
       <div className='popup-inner'>
-        <h3>Shto Konzole</h3>
+        <h3>{isForUpdate ? "Update BizKon" : "Shto BizKon"}</h3>
         <button className='close-btn' onClick={() => props.setShowCreate(!props.showCreate)}>x</button>
         <form onSubmit={handleSubmit} >
           <FormInput
-            required={true} 
+            required={!isForUpdate} 
             label="Emri i Konzoles" 
             type="text" 
             name="emri" 
@@ -59,6 +66,7 @@ const CreateBiznesiKonzola = (props) => {
             label="Konzola"
             onChange={handleChange}
             objectName={"modeli"}
+            required={!isForUpdate}
             />
            <FormSelect
             objects={lokalet}
@@ -66,8 +74,9 @@ const CreateBiznesiKonzola = (props) => {
             label="Lokali"
             onChange={handleChange}
             objectName={"emri"}
+            required={!isForUpdate}
             />
-          <button type='submit'>Shto</button>
+           <button type='submit'>{isForUpdate ? "Update" : "Shto"}</button>
         </form>
       </div>
     </div>

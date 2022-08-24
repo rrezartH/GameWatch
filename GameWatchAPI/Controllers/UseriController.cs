@@ -73,7 +73,7 @@ namespace GameWatchAPI.Controllers
             return Ok(lokaliDTO);
         }*/
 
-        [HttpPut("update-user")]
+        [HttpPut("update-user/{id}")]
         public async Task<ActionResult> UpdateUser(int id, UserControllerDto userDto)
         {
             var dbUseri = await _context.Useri.FindAsync(id);

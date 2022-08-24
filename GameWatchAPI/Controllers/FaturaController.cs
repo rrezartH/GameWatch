@@ -59,7 +59,7 @@ namespace GameWatchAPI.Controllers
             return Ok(faturaDTO);
         }
 
-        [HttpPut("update-fatura")]
+        [HttpPut("update-fatura/{id}")]
         public async Task<ActionResult<FaturaDTO>> UpdateFaturen(int id, FaturaDTO faturaDTO)
         {
             var dbFatura = await _context.Fatura.FindAsync(id);

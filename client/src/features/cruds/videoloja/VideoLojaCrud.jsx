@@ -7,13 +7,29 @@ const VideoLojaCrud = () => {
 
   const { videoLojat } = useContext(GWContext)
   const[showCreate, setShowCreate] = useState(false);
+  const[isForUpdate, setIsForUpdate] = useState(false);
+  const[videoLojaId, setVideoLojaId] = useState(0);
 
   return (
     <>
-      <h3>VideoLojat</h3>
-      <button onClick={() => setShowCreate(!showCreate)}>Shto Videoloje</button>
-      <CrudTable apiObjects = {videoLojat} objectName="VideoLojat"/>
-      {showCreate ? <CreateVideoloja showCreate={showCreate} setShowCreate={setShowCreate} /> : null}
+      <h3>VideoLojat</h3> 
+      <button onClick={() => {setShowCreate(!showCreate); 
+                              setIsForUpdate(false)}}>Shto Videoloje</button>
+      <CrudTable 
+        apiObjects={videoLojat} 
+        objectName="VideoLojat"
+        showCreate={showCreate} 
+        setShowCreate={setShowCreate}
+        setIsForUpdate={setIsForUpdate}
+        setObjectId={setVideoLojaId}
+        />
+      {showCreate ? <CreateVideoloja 
+                      showCreate={showCreate} 
+                      setShowCreate={setShowCreate} 
+                      setIsForUpdate={setIsForUpdate}
+                      isForUpdate={isForUpdate}
+                      videoLojaId={videoLojaId}
+                      /> : null}
 
     </>
   )

@@ -7,6 +7,7 @@ import { FormInput, FormSelect } from '../../../components/form/input/FormInput'
 const CreateCmimore = (props) => {
 
   const { bizneset } = useContext(GWContext);
+  const {cmimorjaId, isForUpdate} = props;
 
   const [cmimorja, setCmimorja] = useState({
     nrLojtareve: 0,
@@ -25,21 +26,28 @@ const CreateCmimore = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(cmimorja);
-    agent.Cmimoret.create(cmimorja)
-      .catch(function(error) {
-        console.log(error.response.data)
-      });
+
+    if(isForUpdate){
+      agent.Cmimoret.update(cmimorjaId, cmimorja)
+        .catch((error) => console.log(error))
+    }
+    else{
+      console.log(cmimorja);
+      agent.Cmimoret.create(cmimorja)
+        .catch(function(error) {
+          console.log(error.response.data)
+        });
+    }
   }
 
   return (
     <div className='popup'>
       <div className='popup-inner'>
-        <h3>Shto Cmimore</h3>
+        <h3>{isForUpdate ? "Update Cmimoren" : "Shto Cmimore"}</h3>
         <button className='close-btn' onClick={() => props.setShowCreate(!props.showCreate)}>x</button>
         <form onSubmit={handleSubmit} >
           <FormInput
-            required={true} 
+            required={!isForUpdate} 
             label="Numri i Lojtareve" 
             type="text" 
             name="nrLojtareve" 
@@ -47,7 +55,7 @@ const CreateCmimore = (props) => {
             onChange={handleChange}
             />
           <FormInput
-            required={true} 
+            required={!isForUpdate} 
             label="Cmimi" 
             type="text" 
             name="cmimi" 
@@ -60,8 +68,9 @@ const CreateCmimore = (props) => {
             label="Biznesi"
             onChange={handleChange}
             objectName={"emri"}
+            required={!isForUpdate}
             />
-          <button type='submit'>Shto</button>
+          <button type='submit'>{isForUpdate ? "Update" : "Shto"}</button>
         </form>
       </div>
     </div>

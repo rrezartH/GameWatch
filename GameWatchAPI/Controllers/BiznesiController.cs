@@ -55,7 +55,7 @@ namespace GameWatchAPI.Controllers
             return Ok(biznesiDTO);
         }
 
-        [HttpPut("update-biznesin")]
+        [HttpPut("update-biznesin/{id}")]
         public async Task<ActionResult> UpdateBiznesin(int id, BiznesiDTO biznesiDTO)
         {
             var dbBiznesi = await _context.Biznesi.FindAsync(id);
