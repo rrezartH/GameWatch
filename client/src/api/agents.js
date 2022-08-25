@@ -33,7 +33,8 @@ const BiznesiKonzolat = {
     list: () => requests.get('/BiznesiKonzola/get-biznesi-konzolat'),
     delete: (id) => requests.del(`BiznesiKonzola/fshij-biznesi-konzola/${id}`),
     create: (values) => requests.post('BiznesiKonzola/shto-biznesi-konzola', values),
-    update: (id, values) => requests.put(`BiznesiKonzola/update-biznesi-konzola/${id}`, values)
+    update: (id, values) => requests.put(`BiznesiKonzola/update-biznesi-konzola/${id}`, values),
+    listById: (id) => requests.get(`BiznesiKonzola/get-biznesi-konzola-by-lokali-id/${id}`)
 }
 const BizneziKonzolaVideolojat = {
     list: () => requests.get('/BizneziKonzolaVideoloja/get-biznesi-konzola-videolojat'),

@@ -80,3 +80,7 @@ GameWatchAPI/bin/Debug/net6.0/GameWatchAPI.exe
 .gitignore
 GameWatchAPI/obj/staticwebassets.pack.sentinel
 GameWatchAPI/obj/staticwebassets.pack.sentinel
+*.sentinel
+GameWatchAPI/obj/Debug/net6.0/apphost.exe
+.vs/GameWatchWebApp/v17/.suo
+*.sentinel

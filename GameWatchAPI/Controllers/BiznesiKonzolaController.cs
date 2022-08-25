@@ -27,7 +27,28 @@ namespace GameWatchAPI.Controllers
         {
             var dbBiznesiKonzola = await _context.BiznesiKonzola.FindAsync(id);
             if (dbBiznesiKonzola == null)
-                return NotFound("Kjo konzole nuk ekziton ne kete biznes.");
+                return NotFound("Kjo konzole nuk ekziston ne kete biznes.");
+
+            dbBiznesiKonzola.Konzola = await _context.Konzola.Where(k => k.Id == dbBiznesiKonzola.KonzolaId).FirstOrDefaultAsync();
+            dbBiznesiKonzola.Lokali = await _context.Lokali.Where(k => k.Id == dbBiznesiKonzola.LokaliId).FirstOrDefaultAsync();
+
+            return Ok(dbBiznesiKonzola);
+        }
+
+        [HttpGet("get-biznesi-konzola-by-lokali-id/{id}")]
+        public async Task<ActionResult<BiznesiKonzola>> GetBiznesiKonzolaByLokaliId(int id)
+        {
+            var dbBiznesiKonzola = await _context.BiznesiKonzola.Where(b => b.LokaliId == id)
+                .Select(bK => new GetBiznesiKonzolaDTO()
+                {
+                    Emri = bK.Emri,
+                    KonzolaId = bK.KonzolaId,
+                    LokaliId = bK.LokaliId,
+                    Statusi = bK.Statusi,
+                    Konzola = bK.Konzola,
+                    Lokali = bK.Lokali,
+
+                }).ToListAsync();
 
             return Ok(dbBiznesiKonzola);
         }

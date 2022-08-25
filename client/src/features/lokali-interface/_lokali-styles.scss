@@ -1,0 +1,51 @@
+@import '../../styles/variables';
+
+.konzola{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 15% 75%;
+    justify-content:space-evenly;
+    
+    .konzola-sidebar{
+        color: white;
+        ul{
+            li{
+                background-color: $primaryCol;
+                margin: 0px 10px 10px 0px;
+                padding: 10px;
+                transition: all 0.25s ease-out;
+            }
+            :hover{
+                background-color: $primaryLightCol;
+            }
+        }
+    }
+
+    .konzola-main{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, clamp(100px, 300px, 500px));
+        justify-content: space-around;
+        gap: 30px;
+        grid-template-rows: repeat(auto-fit, 200px);
+        transition: all 0.25s ease-out;
+
+        .konzola-playstation{
+            height: clamp(150px, 200px, 350px);
+            background-color: $secondaryCol;
+            transition: all 0.25s ease-out;
+        }
+        
+        .expand{
+            width: 100%;
+            background-color: $primaryCol;
+            button :hover{
+                background-color: $primaryLightCol !important;
+            }
+        }
+
+        :hover{
+            background-color: $secondaryLightCol;
+        }
+    }
+}

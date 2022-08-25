@@ -7,6 +7,7 @@ import Navbar from './components/navbar/navbar';
 import Footer from './components/footer/footer';
 import Register from './features/register/register';
 import Dashboard from './features/dashboard/dashboard';
+import LokaliInterface from './features/lokali-interface/LokaliInterface';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element={<LandingPage />} />
           <Route path='/Register' element={<Register />} />
           <Route path='/Dashboard/*' element={<Dashboard />} />
+          <Route path='/Lokali/*' element={<LokaliInterface />} />
         </Routes>
       </div>
       <Footer />

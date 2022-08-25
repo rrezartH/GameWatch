@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace GameWatchAPI.Models
 {
@@ -19,7 +20,9 @@ namespace GameWatchAPI.Models
 
         public virtual Konzola Konzola { get; set; } = null!;
         public virtual Lokali Lokali { get; set; } = null!;
+        [JsonIgnore]
         public virtual ICollection<BizneziKonzolaVideoloja> BizneziKonzolaVideoloja { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Fatura> Fatura { get; set; }
     }
 }
