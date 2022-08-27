@@ -61,7 +61,7 @@ namespace GameWatchAPI.Controllers
                 Email = registerDto.Email,
                 UserName = registerDto.Username,
                 Qyteti = registerDto.Qyteti,
-                RoleName = "Klient",
+                RoleId = 1,
                 BiznesiId = registerDto.BiznesiId
             };
 
@@ -90,7 +90,7 @@ namespace GameWatchAPI.Controllers
                 Emri = user.Emri,
                 Token = _tokenService.CreateToken(user),
                 Username = user.UserName,
-                RoleName = user.RoleName
+                RoleId = user.RoleId
             };
         }
     }

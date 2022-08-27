@@ -48,6 +48,29 @@ namespace GameWatchAPI.Controllers
             return Ok(dbFatura);
         }
 
+        [HttpGet("get-non-closed-faturat-e-lokalit/{id}")]
+        public async Task<ActionResult<List<Fatura>>> GetNonClosedFaturatELokalitById(int id)
+        {
+            var dbFaturat = await _context.Fatura.Where(f => f.LokaliId == id && f.Closed == false)
+                .Select(f => new GetFaturaDTO()
+                {
+                    MbarimiLojes = f.MbarimiLojes,
+                    NrLojtareve = f.NrLojtareve,
+                    Oret = f.Oret,
+                    BiznesiKonzola = f.BiznesiKonzola,
+                    VideoLojaId = f.VideoLojaId,
+                    LokaliId = f.LokaliId,
+                    CmimiTotal = f.CmimiTotal,
+                    Closed = f.Closed,
+                    VideoLoja = f.VideoLoja,
+                })
+                .ToListAsync();
+            if (dbFaturat == null)
+                return NotFound("Nuk ka asnje fature te hapur!");
+
+            return Ok(dbFaturat);
+        }
+
         [HttpPost("shto-fatura")]
         public async Task<ActionResult<String>> ShtoFature(FaturaDTO faturaDTO)
         {

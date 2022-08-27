@@ -1,8 +1,14 @@
 import React from 'react'
 
-const SelectedKonzola = () => {
+const SelectedKonzola = (props) => {
   return (
-    <div>SelectedKonzola</div>
+    <div className='popup'>
+      <div className='popup-inner'>
+        <button className='close-btn' onClick={() => props.setShowKonzola(!props.showKonzola)}>x</button>
+        {console.log(props.bizKonzola)}
+        
+      </div>
+    </div>
   )
 }
 

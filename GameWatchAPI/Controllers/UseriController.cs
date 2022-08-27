@@ -86,8 +86,8 @@ namespace GameWatchAPI.Controllers
                 dbUseri.Qyteti = userDto.Qyteti;
             if (!userDto.PhoneNumber.Trim().Equals(""))
                 dbUseri.PhoneNumber = userDto.PhoneNumber;
-            if (!userDto.RoleName.Trim().Equals(""))
-                dbUseri.RoleName = userDto.RoleName;
+            if (userDto.RoleId != 0)
+                dbUseri.RoleId = userDto.RoleId;
             if (userDto.LokaliId != 0)
                 dbUseri.LokaliId = userDto.LokaliId;
             if (userDto.BiznesiId != 0)

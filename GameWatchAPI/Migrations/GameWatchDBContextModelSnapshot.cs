@@ -94,6 +94,12 @@ namespace GameWatchAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("LokaliID");
 
+                    b.Property<bool?>("Statusi")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("('FALSE')");
+
                     b.HasKey("Id");
 
                     b.HasIndex("KonzolaId");
@@ -166,13 +172,14 @@ namespace GameWatchAPI.Migrations
                     b.Property<int?>("BiznesiKonzola")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("Closed")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("('FALSE')");
+
                     b.Property<decimal>("CmimiTotal")
                         .HasColumnType("decimal(4,2)");
-
-                    b.Property<string>("DateCreated")
-                        .HasMaxLength(20)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(20)");
 
                     b.Property<string>("FillimiLojes")
                         .IsRequired()
@@ -191,6 +198,9 @@ namespace GameWatchAPI.Migrations
 
                     b.Property<int>("NrLojtareve")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("Oret")
+                        .HasColumnType("decimal(4,2)");
 
                     b.Property<int>("VideoLojaId")
                         .HasColumnType("int")
@@ -311,9 +321,8 @@ namespace GameWatchAPI.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("LokaliId")
-                        .HasColumnType("int")
-                        .HasColumnName("LokaliID");
+                    b.Property<int?>("LokaliID")
+                        .HasColumnType("int");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -359,7 +368,7 @@ namespace GameWatchAPI.Migrations
 
                     b.HasIndex("BiznesiId");
 
-                    b.HasIndex("LokaliId");
+                    b.HasIndex("LokaliID");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -642,8 +651,7 @@ namespace GameWatchAPI.Migrations
 
                     b.HasOne("GameWatchAPI.Models.Lokali", "Lokali")
                         .WithMany("Useri")
-                        .HasForeignKey("LokaliId")
-                        .HasConstraintName("FK__Useri__LokaliID__4316F928");
+                        .HasForeignKey("LokaliID");
 
                     b.HasOne("GameWatchAPI.Models.UserRole", "RoleNameNavigation")
                         .WithMany("Useri")

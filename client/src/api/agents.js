@@ -50,7 +50,7 @@ const Cmimoret = {
 }
 const Faturat = {
     list: () => requests.get('/Fatura/get-faturat'),
-    listLokali: (id) => requests.get(`Fatura/get-faturat-by-lokali/${id}`),
+    listLokaliNonClosed: (id) => requests.get(`Fatura/get-non-closed-faturat-e-lokalit/${id}`),
     create: (values) => requests.post('Fatura/shto-fatura', values)
 }
 const Users = {

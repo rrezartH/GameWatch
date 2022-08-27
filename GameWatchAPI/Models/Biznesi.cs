@@ -7,9 +7,9 @@ namespace GameWatchAPI.Models
     {
         public Biznesi()
         {
+            Useri = new HashSet<Useri>();
             Cmimorja = new HashSet<Cmimorja>();
             Lokali = new HashSet<Lokali>();
-            Useri = new HashSet<Useri>();
         }
 
         public int Id { get; set; }
@@ -20,8 +20,8 @@ namespace GameWatchAPI.Models
         public string Qyteti { get; set; } = null!;
         public string? Adresa { get; set; }
 
+        public virtual ICollection<Useri> Useri { get; set; }
         public virtual ICollection<Cmimorja> Cmimorja { get; set; }
         public virtual ICollection<Lokali> Lokali { get; set; }
-        public virtual ICollection<Useri> Useri { get; set; }
     }
 }

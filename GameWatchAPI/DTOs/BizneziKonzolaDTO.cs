@@ -12,6 +12,7 @@ namespace GameWatchAPI.DTOs
 
     public class GetBiznesiKonzolaDTO
     {
+        public int Id {get; set;}
         public string Emri { get; set; } = null!;
         public int KonzolaId { get; set; }
         public int LokaliId { get; set; }

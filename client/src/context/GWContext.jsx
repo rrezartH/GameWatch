@@ -51,7 +51,7 @@ export const GWProvider = props => {
       agent.BiznesiKonzolat.listById(1).then(response => {
         setBizKonzolat(response)
     })
-      agent.Faturat.listLokali(1).then(response => {
+      agent.Faturat.listLokaliNonClosed(1).then(response => {
         setLokaliFaturat(response)
       })
     }

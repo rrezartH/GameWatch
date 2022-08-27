@@ -41,13 +41,13 @@ namespace GameWatchAPI.Controllers
             var dbBiznesiKonzola = await _context.BiznesiKonzola.Where(b => b.LokaliId == id)
                 .Select(bK => new GetBiznesiKonzolaDTO()
                 {
+                    Id = bK.Id,
                     Emri = bK.Emri,
                     KonzolaId = bK.KonzolaId,
                     LokaliId = bK.LokaliId,
                     Statusi = bK.Statusi,
                     Konzola = bK.Konzola,
-                    Lokali = bK.Lokali,
-
+                    Lokali = bK.Lokali
                 }).ToListAsync();
 
             return Ok(dbBiznesiKonzola);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace GameWatchAPI.Models
 {
@@ -8,9 +7,9 @@ namespace GameWatchAPI.Models
     {
         public Lokali()
         {
+            Useri = new HashSet<Useri>();
             BiznesiKonzola = new HashSet<BiznesiKonzola>();
             Fatura = new HashSet<Fatura>();
-            Useri = new HashSet<Useri>();
         }
 
         public int Id { get; set; }
@@ -20,13 +19,9 @@ namespace GameWatchAPI.Models
         public string? Adresa { get; set; }
         public int BiznesiId { get; set; }
 
-        [JsonIgnore]
         public virtual Biznesi Biznesi { get; set; } = null!;
-        [JsonIgnore]
-        public virtual ICollection<BiznesiKonzola> BiznesiKonzola { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<Fatura> Fatura { get; set; }
-        [JsonIgnore]
         public virtual ICollection<Useri> Useri { get; set; }
+        public virtual ICollection<BiznesiKonzola> BiznesiKonzola { get; set; }
+        public virtual ICollection<Fatura> Fatura { get; set; }
     }
 }

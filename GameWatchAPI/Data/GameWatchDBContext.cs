@@ -26,7 +26,6 @@ namespace GameWatchAPI.Data
         public virtual DbSet<Fatura> Fatura { get; set; } = null!;
         public virtual DbSet<Konzola> Konzola { get; set; } = null!;
         public virtual DbSet<Lokali> Lokali { get; set; } = null!;
-        public virtual DbSet<UserRole> UserRole { get; set; } = null!;
         public virtual DbSet<Useri> Useri { get; set; } = null!;
         public virtual DbSet<VideoLoja> VideoLoja { get; set; } = null!;
 
@@ -147,6 +146,10 @@ namespace GameWatchAPI.Data
 
                 entity.Property(e => e.Oret).HasColumnType("decimal(4, 2)");
 
+                entity.Property(e => e.Closed)
+                    .IsRequired()
+                    .HasDefaultValueSql("('FALSE')");
+
                 entity.Property(e => e.VideoLojaId).HasColumnName("VideoLojaID");
 
                 entity.HasOne(d => d.BiznesiKonzolaNavigation)
@@ -203,7 +206,7 @@ namespace GameWatchAPI.Data
                     .HasConstraintName("FK__Lokali__BiznesiI__398D8EEE");
             });
 
-            modelBuilder.Entity<UserRole>(entity =>
+            /*modelBuilder.Entity<UserRole>(entity =>
             {
                 entity.HasKey(e => e.RoleName)
                     .HasName("PK__UserRole__8A2B61618B3A56F9");
@@ -211,7 +214,7 @@ namespace GameWatchAPI.Data
                 entity.Property(e => e.RoleName)
                     .HasMaxLength(20)
                     .IsUnicode(false);
-            });
+            });*/
 
             modelBuilder.Entity<Useri>(entity =>
             {
@@ -224,15 +227,15 @@ namespace GameWatchAPI.Data
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.LokaliId).HasColumnName("LokaliID");
+                //entity.Property(e => e.LokaliID).HasColumnName("LokaliID");
 
                 entity.Property(e => e.Qyteti)
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.RoleName)
+                /*entity.Property(e => e.RoleName)
                     .HasMaxLength(20)
-                    .IsUnicode(false);
+                    .IsUnicode(false);*/
 
                 entity.HasOne(d => d.Biznesi)
                     .WithMany(p => p.Useri)
@@ -243,13 +246,13 @@ namespace GameWatchAPI.Data
                 entity.HasOne(d => d.Lokali)
                     .WithMany(p => p.Useri)
                     .HasForeignKey(d => d.LokaliId)
-                    .HasConstraintName("FK__Useri__LokaliID__4316F928");
+                    .HasConstraintName("FK__AspNetUse__Lokal__3A4CA8FD");
 
-                entity.HasOne(d => d.RoleNameNavigation)
+                /*entity.HasOne(d => d.RoleNameNavigation)
                     .WithMany(p => p.Useri)
-                    .HasForeignKey(d => d.RoleName)
+                    .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Useri__RoleName__4222D4EF");
+                    .HasConstraintName("FK__Useri__RoleName__4222D4EF");*/
             });
 
             modelBuilder.Entity<VideoLoja>(entity =>
