@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import agent from '../../api/agents';
+import React, { useContext, useState } from 'react';
+import { GWContext } from '../../context/GWContext';
 import SelectedKonzola from './SelectedKonzola/SelectedKonzola';
 import './_lokali-styles.scss';
 
 const Konzolat = () => {
-
-    const[bK, setBK] = useState([]);
     const[showKonzola, setShowKonzola] = useState(false);
 
-    useEffect(() => {
-    agent.BiznesiKonzolat.listById(1).then(response => {
-        setBK(response)
-    })
-    console.log(bK);
-    },[])
-
-  
+    const{ bizKonzolat, lokaliFaturat} = useContext(GWContext);
 
   return (
     <>
@@ -23,18 +14,18 @@ const Konzolat = () => {
             <div className="konzola-sidebar">
                 <ul>
                 {React.Children.toArray(
-                    bK.map(konzola => (
-                            <li>{konzola.konzola.modeli}</li>
+                    bizKonzolat.map(konzola => (
+                        <li>{konzola.konzola.modeli}</li>
                 )))}
                 </ul>
             </div>
             <div className="konzola-main">
                 {React.Children.toArray(
-                    bK.map(konzola => (
+                    bizKonzolat.map(konzola => (
                         <div className="konzola-playstation">
-                            <h1>{konzola.konzola.modeli}</h1>
-                            <p>Loja: FIFA22</p>
-                            <p>Mbaron: 15:35</p>
+                            <h1>{konzola.emri}</h1>
+                            {konzola.statusi ? <p>Loja:{lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.id}</p> : null}
+                            {konzola.statusi ? <p>Mbaron:</p> : null}
                             <p>Statusi: {konzola.statusi ? "E zene" : "E lire"}</p>
                             <button className='expand' onClick={() => setShowKonzola(!showKonzola)}>Zmadho</button>
                         </div>

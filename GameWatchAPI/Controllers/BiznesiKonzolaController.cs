@@ -85,6 +85,7 @@ namespace GameWatchAPI.Controllers
                 dbBiznesiKonzola.KonzolaId = biznesiKonzolaDTO.KonzolaId;
             if (biznesiKonzolaDTO.LokaliId != 0)
                 dbBiznesiKonzola.LokaliId = biznesiKonzolaDTO.LokaliId;
+            dbBiznesiKonzola.Statusi = biznesiKonzolaDTO.Statusi;
 
             await _context.SaveChangesAsync();
 

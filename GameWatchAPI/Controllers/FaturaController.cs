@@ -36,11 +36,11 @@ namespace GameWatchAPI.Controllers
             return Ok(dbFatura);
         }
 
-        [HttpGet("get-faturat-by-lokali")]
-        public async Task<ActionResult<List<Fatura>>> GetFaturatByLokali(int lokaliId)
+        [HttpGet("get-faturat-by-lokali/{id}")]
+        public async Task<ActionResult<List<Fatura>>> GetFaturatByLokali(int id)
         {
             List<Fatura> dbFatura = await _context.Fatura
-                                            .Where(f => f.LokaliId == lokaliId)
+                                            .Where(f => f.LokaliId == id)
                                             .ToListAsync();
             if (dbFatura == null)
                 return NotFound("Nuk ka asnje fature nga ky lokal!");

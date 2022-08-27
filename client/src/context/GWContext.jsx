@@ -16,6 +16,10 @@ export const GWProvider = props => {
     //const [users, setUsers] = useState([])
     const [videoLojat, setVideoLojat] = useState([])
 
+    //user
+    const[bizKonzolat, setBizKonzolat] = useState([]);
+    const[lokaliFaturat, setLokaliFaturat] = useState([]);
+
     function fetchDbAsAdmin() {
       agent.Bizneset.list().then(response => {
         setBizneset(response);
@@ -43,8 +47,18 @@ export const GWProvider = props => {
         })
     }
 
+    function fetchDbAsUser() {
+      agent.BiznesiKonzolat.listById(1).then(response => {
+        setBizKonzolat(response)
+    })
+      agent.Faturat.listLokali(1).then(response => {
+        setLokaliFaturat(response)
+      })
+    }
+
     useEffect(() => {
         fetchDbAsAdmin()
+        fetchDbAsUser()
     },[])
 
   return(
@@ -56,7 +70,9 @@ export const GWProvider = props => {
       bizneziKonzolaVideolojat,
       cmimoret,
       faturat,
-      videoLojat
+      videoLojat,
+      bizKonzolat,
+      lokaliFaturat
       } }>
         {props.children}
     </GWContext.Provider>

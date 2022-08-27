@@ -28,12 +28,12 @@
         justify-content: space-around;
         gap: 30px;
         grid-template-rows: repeat(auto-fit, 200px);
-        transition: all 0.25s ease-out;
+        transition: all 0.15s ease-out;
 
         .konzola-playstation{
-            height: clamp(150px, 200px, 350px);
-            background-color: $secondaryCol;
-            transition: all 0.25s ease-out;
+            height: fit-content;
+            background-color: $secondaryLightCol;
+            transition: all 0.15s ease-out;
         }
         
         .expand{
@@ -45,7 +45,7 @@
         }
 
         :hover{
-            background-color: $secondaryLightCol;
+            background-color: $secondaryCol;
         }
     }
 }
