@@ -6,9 +6,11 @@ import RedStatusIcon from '../../img/popup-konzola-assets/red-status.svg';
 import GreenStatusIcon from '../../img/popup-konzola-assets/green-status.svg';
 import GamePlayedIcon from '../../img/popup-konzola-assets/game-played.svg';
 import TimeFinishIcon from '../../img/popup-konzola-assets/time-finish.svg';
+import AddKonzolaSession from './SelectedKonzola/AddKonzolaSession';
 
 const Konzolat = () => {
-    const[showKonzola, setShowKonzola] = useState(false);
+    const[showTakenKonzola, setShowTakenKonzola] = useState(false);
+    const[showFreeKonzola, setShowFreeKonzola] = useState(false);
     const[bizKonzolaId, setBizKonzolaId] = useState();
 
     const{ bizKonzolat, lokaliFaturat} = useContext(GWContext);
@@ -47,22 +49,30 @@ const Konzolat = () => {
                                     {konzola.statusi ? 
                                         <div className='img-text-group'> 
                                             <img src={TimeFinishIcon} alt="time-finish-icon" />  
-                                            <p>Mbaron: {convertToTime(lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.mbarimiLojes)}</p></div>
+                                            <p>{convertToTime(lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.mbarimiLojes)}</p></div>
                                             : null}
                                 </div>
                                 <img src={konzola.statusi ? RedStatusIcon : GreenStatusIcon} alt="status" />
                             </div>
-                            <button className='expand' onClick={() => {setShowKonzola(!showKonzola); setBizKonzolaId(konzola.id)}}>Zmadho</button>
+                            <button className='expand' onClick={() => {konzola.statusi ? 
+                                                                        setShowTakenKonzola(!showTakenKonzola) : setShowFreeKonzola(!showFreeKonzola);
+                                                                         setBizKonzolaId(konzola.id)}}
+                                                                         >Zmadho</button>
                         </div>
                 )))}
             </div>
         </div>
-        { showKonzola ? <SelectedKonzola 
+        { showTakenKonzola ? <SelectedKonzola 
                             bizKonzola={bizKonzolat.find(b => b.id === bizKonzolaId)}
                             fatura={lokaliFaturat.find(fatura => fatura.biznesiKonzola === bizKonzolaId)}
-                            setShowKonzola={setShowKonzola}
-                            showKonzola={showKonzola}
+                            setShowTakenKonzola={setShowTakenKonzola}
+                            showTakenKonzola={showTakenKonzola}
                             /> : ""}
+        { showFreeKonzola ? <AddKonzolaSession 
+                            setShowFreeKonzola={setShowFreeKonzola}
+                            showFreeKonzola={showFreeKonzola}
+                            bizKonzolaId={bizKonzolaId}
+                                /> : ""}
     </>
   ) 
 }

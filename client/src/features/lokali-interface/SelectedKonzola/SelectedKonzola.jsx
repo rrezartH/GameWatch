@@ -5,15 +5,22 @@ import TimeFinishIcon from '../../../img/popup-konzola-assets/time-finish.svg';
 import TimeStartIcon from '../../../img/popup-konzola-assets/time-start.svg';
 import TimeIcon from '../../../img/popup-konzola-assets/time.svg';
 import PlayersIcon from '../../../img/popup-konzola-assets/players.svg'
+import agent from '../../../api/agents';
 
 const SelectedKonzola = (props) => {
 
-  const{ bizKonzola, fatura, setShowKonzola, showKonzola } = props
+  const{ bizKonzola, fatura, setShowTakenKonzola, showTakenKonzola } = props
+
+  const handleFinalize = (id) => {
+    agent.Faturat.finalize(id).catch(function(error) {
+      console.log(error.response.data)
+    });
+  }
 
   return (
     <div className='popup'>
       <div className='popup-inner-konzola'>
-        <button className='close-btn-konzola' onClick={() => setShowKonzola(!showKonzola)}>x</button>
+        <button className='close-btn-konzola' onClick={() => setShowTakenKonzola(!showTakenKonzola)}>x</button>
         <div className="selected-konzola">
           <div className="selected-konzola-title">
             <h3>{bizKonzola.emri}</h3>
@@ -33,7 +40,7 @@ const SelectedKonzola = (props) => {
           </div>
         </div>
         <div className="konzola-buttons">
-          <button className='perfundo-button'>Perfundo</button>
+          <button className='perfundo-button' onClick={handleFinalize(fatura?.id)}>Finalizo</button>
           <button className='perditeso-button'>Perditeso</button>
         </div>
       </div>

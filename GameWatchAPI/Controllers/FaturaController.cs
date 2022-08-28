@@ -84,6 +84,14 @@ namespace GameWatchAPI.Controllers
             return Ok(faturaDTO);
         }
 
+        [HttpPatch("finalizo-fatura/{id}")]
+        public async Task<ActionResult> FinalizoFature(int id)
+        {
+            await _faturaService.FinalizoFaturaAsync(id);
+
+            return Ok("Fatura u finalizua!");
+        }
+
         [HttpPut("update-fatura/{id}")]
         public async Task<ActionResult<FaturaDTO>> UpdateFaturen(int id, FaturaDTO faturaDTO)
         {

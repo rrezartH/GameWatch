@@ -11,7 +11,6 @@ namespace GameWatchAPI.DTOs
         public int VideoLojaId { get; set; }
         public int LokaliId { get; set; }
         public decimal CmimiTotal { get; set; }
-        public bool? Closed { get; set; }
     }
 
     public class GetFaturaDTO
