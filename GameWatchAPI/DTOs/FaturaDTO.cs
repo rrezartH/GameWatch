@@ -16,6 +16,8 @@ namespace GameWatchAPI.DTOs
 
     public class GetFaturaDTO
     {
+        public int Id { get; set; }
+        public string FillimiLojes { get; set; } = null!;
         public string? MbarimiLojes { get; set; }
         public int NrLojtareve { get; set; }
         public decimal? Oret { get; set; }

@@ -1,4 +1,4 @@
-@import '../../styles/variables';
+@import '../../styles/variables.scss';
 
 .konzola{
     width: 100%;
@@ -31,9 +31,54 @@
         transition: all 0.15s ease-out;
 
         .konzola-playstation{
-            height: fit-content;
-            background-color: $secondaryLightCol;
+            display: flex;
+            background-color: rgb(243, 243, 243);
+            flex-direction: column;
+            justify-content: space-between;
+            height: 150px;
+            box-shadow: $secondaryCol 8px 8px;
             transition: all 0.15s ease-out;
+            padding: 2%;
+            h1{
+                font-family: Pixellari;
+                font-size: 2rem;
+                margin: 0;
+            }
+            img{
+                width: 40px;
+            }
+            p{
+                margin: 0;
+            }
+
+            .konzola-playstation-body{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                column-gap: 20px;
+
+                .konzola-playstation-description{
+                    display: flex;
+                    flex-direction: column;
+
+                    .konzola-modeli{
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                    }
+                }
+
+                .img-text-group {
+                    display: flex;
+                    margin: 5px 0px;
+                    img{
+                    height: 20px;
+                    }
+                }
+            }
+        }
+
+        .konzola-playstation:hover{
+            box-shadow: $secondaryCol 20px 20px;
         }
         
         .expand{
@@ -42,10 +87,107 @@
             button :hover{
                 background-color: $primaryLightCol !important;
             }
-        }
-
-        :hover{
-            background-color: $secondaryCol;
-        }
+        }        
     }
 }
+
+.popup-inner-konzola {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    width: 50%;
+    max-width: 1000px;
+    position: relative;
+    transition: all 5s ease-in-out;
+    box-shadow: $secondaryCol 20px 20px;
+    font-weight: 400;
+
+    h2 {
+      margin-top: 0;
+    }
+    
+    .close-btn-konzola {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      transition: all 200ms;
+      font-size: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      background-color: #00000000;
+      color: $primaryCol;
+      
+      &:hover {
+        background-color: #00000000;
+        color: $secondaryCol;
+      }
+    }
+
+    .selected-konzola{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .selected-konzola-title{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: $black;
+            p{
+                color: gray;
+                font-weight: 500;
+                margin-top: 0;
+            }
+            h3{
+                font-family: Pixellari;
+                font-size: 2rem;
+                margin-bottom: 0;
+            }
+        }
+    
+        .selected-konzola-details{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            width: 100%;
+            column-gap: 50px;
+            
+            .selected-konzola-details-element {
+                display: flex;
+                flex-direction: row;
+                column-gap: 15px;
+                img {
+                    width: 40px;
+                }
+            }
+
+            selected-konzola-details-left{
+                display: flex;
+                flex-direction: column;
+                width: 50%;                
+            }    
+        }
+    }
+
+    .konzola-buttons{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        padding: 0% 20%;
+
+        // .perfundo-button{
+        // }
+        .perditeso-button{
+            background-color: $secondaryCol;
+            color: $primaryCol;
+            font-weight: bolder;   
+        }
+        .perditeso-button:hover{
+            background-color: $primaryCol;
+            color: white;
+        }
+    }
+  }
+
+

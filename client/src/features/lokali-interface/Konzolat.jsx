@@ -2,6 +2,10 @@ import React, { useContext, useState } from 'react';
 import { GWContext } from '../../context/GWContext';
 import SelectedKonzola from './SelectedKonzola/SelectedKonzola';
 import './_lokali-styles.scss';
+import RedStatusIcon from '../../img/popup-konzola-assets/red-status.svg';
+import GreenStatusIcon from '../../img/popup-konzola-assets/green-status.svg';
+import GamePlayedIcon from '../../img/popup-konzola-assets/game-played.svg';
+import TimeFinishIcon from '../../img/popup-konzola-assets/time-finish.svg';
 
 const Konzolat = () => {
     const[showKonzola, setShowKonzola] = useState(false);
@@ -29,18 +33,32 @@ const Konzolat = () => {
                 {React.Children.toArray(
                     bizKonzolat.map(konzola => (
                         <div className="konzola-playstation">
-                            <h1>{konzola.emri}</h1>
-                            {konzola.statusi ? 
-                            <p>Loja: {lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.videoLoja.emri}</p> : null}
-                            {konzola.statusi ? <p>Mbaron: {convertToTime(lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.mbarimiLojes)}</p> : null}
-                            <p>Statusi: {konzola.statusi ? "E zene" : "E lire"}</p>
+                            <div className="konzola-playstation-title">
+                                <h1>{konzola.emri}</h1>
+                            </div>
+                            <div className="konzola-playstation-body">
+                                <div className="konzola-playstation-description">
+                                    <p className="konzola-modeli">{konzola.konzola.modeli}</p>
+                                    {konzola.statusi ? 
+                                        <div className='img-text-group'> 
+                                            <img src={GamePlayedIcon} alt="game-played-icon" />     
+                                            <p>{lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.videoLoja.emri}</p>
+                                        </div> : null}
+                                    {konzola.statusi ? 
+                                        <div className='img-text-group'> 
+                                            <img src={TimeFinishIcon} alt="time-finish-icon" />  
+                                            <p>Mbaron: {convertToTime(lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.mbarimiLojes)}</p></div>
+                                            : null}
+                                </div>
+                                <img src={konzola.statusi ? RedStatusIcon : GreenStatusIcon} alt="status" />
+                            </div>
                             <button className='expand' onClick={() => {setShowKonzola(!showKonzola); setBizKonzolaId(konzola.id)}}>Zmadho</button>
                         </div>
                 )))}
             </div>
         </div>
         { showKonzola ? <SelectedKonzola 
-                            bizKonzola={bizKonzolat.find(b => b.id == bizKonzolaId)}
+                            bizKonzola={bizKonzolat.find(b => b.id === bizKonzolaId)}
                             fatura={lokaliFaturat.find(fatura => fatura.biznesiKonzola === bizKonzolaId)}
                             setShowKonzola={setShowKonzola}
                             showKonzola={showKonzola}

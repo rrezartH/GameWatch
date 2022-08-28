@@ -49,11 +49,13 @@ namespace GameWatchAPI.Controllers
         }
 
         [HttpGet("get-non-closed-faturat-e-lokalit/{id}")]
-        public async Task<ActionResult<List<Fatura>>> GetNonClosedFaturatELokalitById(int id)
+        public async Task<ActionResult<List<GetFaturaDTO>>> GetNonClosedFaturatELokalitById(int id)
         {
             var dbFaturat = await _context.Fatura.Where(f => f.LokaliId == id && f.Closed == false)
                 .Select(f => new GetFaturaDTO()
                 {
+                    Id = f.Id,
+                    FillimiLojes = f.FillimiLojes,
                     MbarimiLojes = f.MbarimiLojes,
                     NrLojtareve = f.NrLojtareve,
                     Oret = f.Oret,
