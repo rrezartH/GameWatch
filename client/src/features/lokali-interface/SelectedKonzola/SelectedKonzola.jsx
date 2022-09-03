@@ -11,10 +11,11 @@ const SelectedKonzola = (props) => {
 
   const{ bizKonzola, fatura, setShowTakenKonzola, showTakenKonzola } = props
 
-  const handleFinalize = (id) => {
+  function handleFinalize(id) {
     agent.Faturat.finalize(id).catch(function(error) {
       console.log(error.response.data)
     });
+    console.log("Fatura u finalizua!");
   }
 
   return (
@@ -40,7 +41,7 @@ const SelectedKonzola = (props) => {
           </div>
         </div>
         <div className="konzola-buttons">
-          <button className='perfundo-button' onClick={handleFinalize(fatura?.id)}>Finalizo</button>
+          <button className='perfundo-button' onClick={() => handleFinalize(fatura?.id)}>Finalizo</button>
           <button className='perditeso-button'>Perditeso</button>
         </div>
       </div>

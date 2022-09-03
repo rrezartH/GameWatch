@@ -11,13 +11,13 @@ const CreateCmimore = (props) => {
 
   const [cmimorja, setCmimorja] = useState({
     nrLojtareve: 0,
-    cmimi: 0,
+    cmimi: 0.0,
     biznesiId: 0
   });
   
   const handleChange = (e) => {
     const name = e.target.name;
-    const value = parseInt( e.target.value, 10);
+    const value = e.target.value;
 
     setCmimorja((prev) => {
       return { ...prev, [name]: value}
@@ -49,7 +49,7 @@ const CreateCmimore = (props) => {
           <FormInput
             required={!isForUpdate} 
             label="Numri i Lojtareve" 
-            type="text" 
+            type="numer" 
             name="nrLojtareve" 
             placeholder="Numri i Lojtareve" 
             onChange={handleChange}
@@ -57,7 +57,7 @@ const CreateCmimore = (props) => {
           <FormInput
             required={!isForUpdate} 
             label="Cmimi" 
-            type="text" 
+            type="decimal" 
             name="cmimi" 
             placeholder="Cmimi" 
             onChange={handleChange}

@@ -53,7 +53,7 @@ const Faturat = {
     list: () => requests.get('/Fatura/get-faturat'),
     listLokaliNonClosed: (id) => requests.get(`Fatura/get-non-closed-faturat-e-lokalit/${id}`),
     create: (values) => requests.post('Fatura/shto-fatura', values),
-    finalize: (id) => requests.patch(`Fatura/finalizo-fatura/${id}`)
+    finalize: (id) => requests.put(`Fatura/finalizo-fatura/${id}`)
 }
 const Users = {
     list: () => requests.get('/Users/get-users')

@@ -3,6 +3,7 @@ using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using GameWatchAPI.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameWatchAPI.Controllers
@@ -84,7 +85,7 @@ namespace GameWatchAPI.Controllers
             return Ok(faturaDTO);
         }
 
-        [HttpPatch("finalizo-fatura/{id}")]
+        [HttpPut("finalizo-fatura/{id}")]
         public async Task<ActionResult> FinalizoFature(int id)
         {
             await _faturaService.FinalizoFaturaAsync(id);
@@ -93,6 +94,13 @@ namespace GameWatchAPI.Controllers
         }
 
         [HttpPut("update-fatura/{id}")]
+        public async Task<ActionResult> UpdateFatura(int id, UpdateFaturaDTO faturaDTO)
+        {
+            await _faturaService.UpdateFaturaAsync(id, faturaDTO);
+            return Ok();
+        }
+
+        /*[HttpPut("update-fatura/{id}")]
         public async Task<ActionResult<FaturaDTO>> UpdateFaturen(int id, FaturaDTO faturaDTO)
         {
             var dbFatura = await _context.Fatura.FindAsync(id);
@@ -118,6 +126,6 @@ namespace GameWatchAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok("Fatura u perditesua me sukses!");
-        }
+        }*/
     }
 }

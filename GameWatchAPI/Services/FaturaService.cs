@@ -1,7 +1,10 @@
-﻿using GameWatchAPI.Controllers;
+﻿using AutoMapper;
+using GameWatchAPI.Controllers;
 using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using System.Web.Mvc;
 
 namespace GameWatchAPI.Services
@@ -10,11 +13,13 @@ namespace GameWatchAPI.Services
     {
         private readonly GameWatchDBContext _context;
         private readonly CmimorjaService _cmimorjaService;
+        private readonly IMapper _mapper;
 
-        public FaturaService(GameWatchDBContext context, CmimorjaService cmimorjaService)
+        public FaturaService(GameWatchDBContext context, CmimorjaService cmimorjaService, IMapper mapper)
         {
             _context = context;
             _cmimorjaService = cmimorjaService;
+            _mapper = mapper;
         }
 
         public async Task AddFaturaAsync(FaturaDTO faturaDTO)
@@ -61,6 +66,30 @@ namespace GameWatchAPI.Services
 
             var konzola = await _context.BiznesiKonzola.FindAsync(fatura.BiznesiKonzola);
             konzola.Statusi = false;
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateFaturaAsync(int id, FaturaDTO faturaDTO)
+        {
+            var dbFatura = await _context.Fatura.FindAsync(id);
+
+            _mapper.Map(mappedFatura, fatura);
+
+            if (faturaDTO == null)
+
+            if (!faturaDTO.MbarimiLojes.Trim().Equals(""))
+                dbFatura.MbarimiLojes = faturaDTO.MbarimiLojes;
+            if (faturaDTO.NrLojtareve != 0)
+                dbFatura.NrLojtareve = faturaDTO.NrLojtareve;
+            if (faturaDTO.BiznesiKonzola != 0)
+                dbFatura.BiznesiKonzola = faturaDTO.BiznesiKonzola;
+            if (faturaDTO.VideoLojaId != 0)
+                dbFatura.VideoLojaId = faturaDTO.VideoLojaId;
+            if (faturaDTO.LokaliId != 0)
+                dbFatura.LokaliId = faturaDTO.LokaliId;
+            if (faturaDTO.CmimiTotal != 0)
+                dbFatura.CmimiTotal = faturaDTO.CmimiTotal;
 
             await _context.SaveChangesAsync();
         }

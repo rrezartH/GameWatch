@@ -31,9 +31,14 @@ builder.Services.AddCors(opt => {
     });
 });
 
+builder.Services.AddControllers()
+    .AddNewtonsoftJson();
+
 
 builder.Services.AddIdentityServices(_config);
 
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddTransient<FaturaService>();
 builder.Services.AddTransient<CmimorjaService>();
 

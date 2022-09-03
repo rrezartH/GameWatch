@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useContext } from 'react';
 import agent from '../../../api/agents';
-import { FormInput, FormSelect, FormSelectQytetet } from '../../../components/form/input/FormInput';
+import { FormInput, FormSelect } from '../../../components/form/input/FormInput';
 import { GWContext } from '../../../context/GWContext';
 
 const AddKonzolaSession = (props) => {
@@ -13,7 +13,7 @@ const AddKonzolaSession = (props) => {
    const [fatura, setFatura] = useState({
     mbarimiLojes: "",
     nrLojtareve: 0,
-    oret: 0,
+    oret: 0.0,
     biznesiKonzola: bizKonzolaId,
     videoLojaId: 0,
     lokaliId: 1, //hardcoded
