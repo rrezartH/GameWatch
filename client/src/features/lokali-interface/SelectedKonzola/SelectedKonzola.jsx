@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import GamePlayedIcon from '../../../img/popup-konzola-assets/game-played.svg';
 import PriceIcon from '../../../img/popup-konzola-assets/price.svg';
 import TimeFinishIcon from '../../../img/popup-konzola-assets/time-finish.svg';
@@ -6,10 +6,15 @@ import TimeStartIcon from '../../../img/popup-konzola-assets/time-start.svg';
 import TimeIcon from '../../../img/popup-konzola-assets/time.svg';
 import PlayersIcon from '../../../img/popup-konzola-assets/players.svg'
 import agent from '../../../api/agents';
+import UpdateFatura from './UpdateFatura';
 
 const SelectedKonzola = (props) => {
 
   const{ bizKonzola, fatura, setShowTakenKonzola, showTakenKonzola } = props
+
+  const[localFatura, setLocalFatura] = useState(fatura)
+
+  const[showUpdateFatura, setShowUpdateFatura] = useState(false);
 
   function handleFinalize(id) {
     agent.Faturat.finalize(id).catch(function(error) {
@@ -18,34 +23,60 @@ const SelectedKonzola = (props) => {
     console.log("Fatura u finalizua!");
   }
 
+  function handlePreview(id) {
+    agent.Faturat.preview(id)
+      .then(response => {
+        console.log(fatura.mbarimiLojes)
+
+        setLocalFatura((prev) => {
+          return {...prev, cmimiTotal: response.cmimiTotal, oret: response.oret, mbarimiLojes: response.mbarimiLojes}
+        })
+
+        console.log(fatura)
+      }).catch(function(error) {
+        console.log(error.response.data)
+      });
+  }
+
   return (
-    <div className='popup'>
-      <div className='popup-inner-konzola'>
-        <button className='close-btn-konzola' onClick={() => setShowTakenKonzola(!showTakenKonzola)}>x</button>
-        <div className="selected-konzola">
-          <div className="selected-konzola-title">
-            <h3>{bizKonzola.emri}</h3>
-            <p>ID #{fatura?.id}</p>
-          </div>
-          <div className="selected-konzola-details">
-            <div className="selected-konzola-details-left">
-              <div className='selected-konzola-details-element'> <img src={GamePlayedIcon} alt="game-played-icon" />  <p>{fatura?.videoLoja.emri}</p></div>
-              <div className='selected-konzola-details-element'> <img src={TimeStartIcon} alt="time-start-icon" /> <p>{fatura?.fillimiLojes}</p> </div>
-              <div className='selected-konzola-details-element'> <img src={TimeFinishIcon} alt="time-finish-icon" /> <p>{fatura?.mbarimiLojes !== "" ? fatura?.mbarimiLojes : "Pacaktuar"}</p> </div>
-            </div>            
-            <div className="selected-konzola-details-right">
-              <div className='selected-konzola-details-element'> <img src={PlayersIcon} alt="players-icon" /><p>{fatura?.nrLojtareve} Lojtarë</p> </div>
-              <div className='selected-konzola-details-element'> <img src={TimeIcon} alt="time-icon" /><p>{fatura?.oret} Orë</p> </div>
-              <div className='selected-konzola-details-element'> <img src={PriceIcon} alt="price-icon" /><p>{fatura?.cmimiTotal}€</p> </div>
+    <>
+      <div className='popup'>
+        <div className='popup-inner-konzola'>
+          <button className='close-btn-konzola' onClick={() => setShowTakenKonzola(!showTakenKonzola)}>x</button>
+          <div className="selected-konzola">
+            <div className="selected-konzola-title">
+              <h3>{bizKonzola.emri}</h3>
+              <p>ID #{localFatura?.id}</p>
+            </div>
+            <div className="selected-konzola-details">
+              <div className="selected-konzola-details-left">
+                <div className='selected-konzola-details-element'> <img src={GamePlayedIcon} alt="game-played-icon" />  <p>{localFatura?.videoLoja.emri}</p></div>
+                <div className='selected-konzola-details-element'> <img src={TimeStartIcon} alt="time-start-icon" /> <p>{localFatura?.fillimiLojes}</p> </div>
+                <div className='selected-konzola-details-element'> <img src={TimeFinishIcon} alt="time-finish-icon" /> <p>{localFatura?.mbarimiLojes !== "" ? localFatura?.mbarimiLojes : "Pacaktuar"}</p> </div>
+              </div>            
+              <div className="selected-konzola-details-right">
+                <div className='selected-konzola-details-element'> <img src={PlayersIcon} alt="players-icon" /><p>{localFatura?.nrLojtareve} Lojtarë</p> </div>
+                <div className='selected-konzola-details-element'> <img src={TimeIcon} alt="time-icon" /><p>{localFatura?.oret} Orë</p> </div>
+                <div className='selected-konzola-details-element'> <img src={PriceIcon} alt="price-icon" /><p>{localFatura?.cmimiTotal}€</p> </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="konzola-buttons">
-          <button className='perfundo-button' onClick={() => handleFinalize(fatura?.id)}>Finalizo</button>
-          <button className='perditeso-button'>Perditeso</button>
+          <div className="konzola-buttons">
+            <button className='perfundo-button' onClick={() => handleFinalize(localFatura?.id)}>Finalizo</button>
+            {fatura.cmimiTotal !== 0 ? 
+              <button className='perditeso-button' onClick={() => setShowUpdateFatura(!showUpdateFatura)}>Perditeso</button> 
+            :
+              <button onClick={() => handlePreview(fatura.id)}>Preview</button>
+            }
+          </div>
         </div>
       </div>
-    </div>
+      {showUpdateFatura ? <UpdateFatura 
+                            faturaId={fatura.id}
+                            setShowUpdateFatura={setShowUpdateFatura} 
+                            showUpdateFatura={showUpdateFatura}
+                            /> : ""}
+    </>
   )
 }
 

@@ -13,18 +13,16 @@ namespace GameWatchAPI.Services
     {
         private readonly GameWatchDBContext _context;
         private readonly CmimorjaService _cmimorjaService;
-        private readonly IMapper _mapper;
 
-        public FaturaService(GameWatchDBContext context, CmimorjaService cmimorjaService, IMapper mapper)
+        public FaturaService(GameWatchDBContext context, CmimorjaService cmimorjaService)
         {
             _context = context;
             _cmimorjaService = cmimorjaService;
-            _mapper = mapper;
         }
 
         public async Task AddFaturaAsync(FaturaDTO faturaDTO)
         {
-            var cmimi = await _cmimorjaService.GetCmimorjaByLokali(faturaDTO.LokaliId, faturaDTO.NrLojtareve);
+            var cmimi = await _cmimorjaService.GetCmimorjaByLokaliAndLojtaret(faturaDTO.LokaliId, faturaDTO.NrLojtareve);
             Fatura fatura = new()
             {
                 FillimiLojes = DateTime.Now.ToString(),
@@ -50,14 +48,13 @@ namespace GameWatchAPI.Services
         {
             var fatura = await _context.Fatura.FindAsync(id);
 
-            var cmimi = await _cmimorjaService.GetCmimorjaByLokali(fatura.LokaliId, fatura.NrLojtareve);
+            var cmimi = await _cmimorjaService.GetCmimorjaByLokaliAndLojtaret(fatura.LokaliId, fatura.NrLojtareve);
 
             fatura.Closed = true;
 
             if (fatura.CmimiTotal == 0 || fatura.Oret == 0)
             {
-                DateTime fillimi = DateTime.Parse(fatura.FillimiLojes);
-                TimeSpan oret = DateTime.Now - fillimi;
+                TimeSpan oret = DateTime.Now - DateTime.Parse(fatura.FillimiLojes);
 
                 fatura.MbarimiLojes = DateTime.Now.ToString();
                 fatura.Oret = (decimal)oret.TotalHours;
@@ -70,28 +67,40 @@ namespace GameWatchAPI.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateFaturaAsync(int id, FaturaDTO faturaDTO)
+        //kjo metode perdoret kur nuk dihen oret, cmimi dhe mbarimi i lojes
+        public async Task<PreviewFaturaDTO> GetPreviewFaturaAsync(Fatura fatura)
         {
-            var dbFatura = await _context.Fatura.FindAsync(id);
+            var cmimi = await _cmimorjaService.GetCmimorjaByLokaliAndLojtaret(fatura.LokaliId, fatura.NrLojtareve);
 
-            _mapper.Map(mappedFatura, fatura);
+            var previewFatura = new PreviewFaturaDTO()
+            {
+                Oret = Math.Round((decimal)(DateTime.Now - DateTime.Parse(fatura.FillimiLojes)).TotalHours, 2),
+                MbarimiLojes = DateTime.Now.ToString(),
+            };
 
-            if (faturaDTO == null)
+            previewFatura.CmimiTotal = previewFatura.Oret ?? 0.0M * cmimi;
 
-            if (!faturaDTO.MbarimiLojes.Trim().Equals(""))
-                dbFatura.MbarimiLojes = faturaDTO.MbarimiLojes;
-            if (faturaDTO.NrLojtareve != 0)
-                dbFatura.NrLojtareve = faturaDTO.NrLojtareve;
-            if (faturaDTO.BiznesiKonzola != 0)
-                dbFatura.BiznesiKonzola = faturaDTO.BiznesiKonzola;
-            if (faturaDTO.VideoLojaId != 0)
-                dbFatura.VideoLojaId = faturaDTO.VideoLojaId;
-            if (faturaDTO.LokaliId != 0)
-                dbFatura.LokaliId = faturaDTO.LokaliId;
+            return previewFatura;
+        }
+
+        public async Task UpdateFaturaAsync(Fatura dbFatura, UpdateFaturaDTO faturaDTO)
+        {
+            var cmimi = await _cmimorjaService.GetCmimorjaByLokaliAndLojtaret(dbFatura.LokaliId, dbFatura.NrLojtareve);
+
+            if (faturaDTO.Oret != 0)
+            {
+                dbFatura.Oret = faturaDTO.Oret ?? 0;
+                dbFatura.CmimiTotal = cmimi * dbFatura.Oret ?? 0.0M;
+            }
             if (faturaDTO.CmimiTotal != 0)
-                dbFatura.CmimiTotal = faturaDTO.CmimiTotal;
+            {
+                dbFatura.CmimiTotal = faturaDTO.CmimiTotal ?? 0.0M;
+                dbFatura.Oret = dbFatura.CmimiTotal / cmimi;
+            }
 
-            await _context.SaveChangesAsync();
+            dbFatura.MbarimiLojes = DateTime.Parse(dbFatura.FillimiLojes).AddHours((double)dbFatura.Oret!).ToString();
+                
+            await _context.SaveChangesAsync();         
         }
     }
 }

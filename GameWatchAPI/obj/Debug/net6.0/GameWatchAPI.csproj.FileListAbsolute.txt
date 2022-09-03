@@ -551,3 +551,8 @@ C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\r
 C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\GameWatchAPI.pdb
 C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\GameWatchAPI.genruntimeconfig.cache
 C:\Users\RREZ\Desktop\Coding\GameWatch\GameWatch\GameWatchAPI\obj\Debug\net6.0\ref\GameWatchAPI.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\AutoMapper.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Coding\GameWatchWebApp\GameWatchWebApp\GameWatchAPI\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

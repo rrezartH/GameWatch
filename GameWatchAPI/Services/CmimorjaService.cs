@@ -11,7 +11,7 @@ namespace GameWatchAPI.Services
             _context = context;
         }
 
-        public async Task<decimal> GetCmimorjaByLokali(int lokaliId, int nrLojtareve)
+        public async Task<decimal> GetCmimorjaByLokaliAndLojtaret(int lokaliId, int nrLojtareve)
         {
             int biznesiId = (await _context.Lokali.FirstOrDefaultAsync(f => f.Id == lokaliId))!.BiznesiId;
 

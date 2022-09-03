@@ -105,6 +105,26 @@
     h2 {
       margin-top: 0;
     }
+
+    .update-fatura{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 20px;
+
+        form{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .update-fatura-inputs{
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
+    }
     
     .close-btn-konzola {
       position: absolute;

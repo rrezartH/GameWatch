@@ -74,6 +74,16 @@ namespace GameWatchAPI.Controllers
             return Ok(dbFaturat);
         }
 
+        [HttpGet("get-preview-fatura/{id}")]
+        public async Task<ActionResult<PreviewFaturaDTO>> GetPreviewFatura(int id)
+        {
+            var dbFatura = await _context.Fatura.FindAsync(id);
+            if (dbFatura == null)
+                return NotFound("Kjo fature nuk u gjet!");
+
+            return Ok(await _faturaService.GetPreviewFaturaAsync(dbFatura));
+        } 
+
         [HttpPost("shto-fatura")]
         public async Task<ActionResult<String>> ShtoFature(FaturaDTO faturaDTO)
         {
@@ -96,8 +106,18 @@ namespace GameWatchAPI.Controllers
         [HttpPut("update-fatura/{id}")]
         public async Task<ActionResult> UpdateFatura(int id, UpdateFaturaDTO faturaDTO)
         {
-            await _faturaService.UpdateFaturaAsync(id, faturaDTO);
-            return Ok();
+            if (faturaDTO == null)
+                return BadRequest("Nuk mund te beni kerkese te zbrazet!");
+
+            var dbFatura = await _context.Fatura.FindAsync(id);
+            if (dbFatura == null)
+                return NotFound("Kjo fature nuk u gjet!");
+
+            if (DateTime.Now.AddHours((double)-faturaDTO.Oret!) > DateTime.Parse(dbFatura.FillimiLojes))
+                return BadRequest("Kane kaluar me shume ore se sa oret qe keni vendosur.");
+
+            await _faturaService.UpdateFaturaAsync(dbFatura, faturaDTO);
+            return Ok("Perditsimi pati sukses!");
         }
 
         /*[HttpPut("update-fatura/{id}")]

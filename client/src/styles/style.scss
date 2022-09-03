@@ -32,6 +32,9 @@
             color: white;
             background-color: $secondaryCol;
           }
+        &:active{
+            background-color: $secondaryLightCol;
+        }
     }
 
     a{
