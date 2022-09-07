@@ -4,7 +4,7 @@ import './_crud-table.scss'
 
 function CrudTable(props) {
     const { apiObjects, objectName } = props;
-    const apiObjectKeys = apiObjects.length > 0 ? Object.keys(apiObjects[0]) : "";
+    const apiObjectKeys = apiObjects.length > 0 ? Object.keys(apiObjects[0]) : null;
     const capitalizeFirst = str => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
@@ -19,22 +19,23 @@ function CrudTable(props) {
         }
     }
 
-    return (apiObjects.length > 0) ? (
+    return (
         <>
             <div className="table-wrapper">
                 <table className="fl-table">
                 <thead>
                     <tr>
                         {React.Children.toArray(
-                            apiObjectKeys.map(objectKey => (
+                            apiObjectKeys?.map(objectKey => (
                                 <th>{capitalizeFirst(objectKey)}</th>
                         )))}
                         <th>Update</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
+                {/*Here I map the objects I get from the api and then I get their member by their keys which i stored in line 7 */}
                 <tbody>
-                    {apiObjects.map(object => (
+                    {apiObjects?.map(object => (
                         <tr key={object.id}>
                             {React.Children.toArray(
                                 apiObjectKeys.map(member => (
@@ -48,7 +49,7 @@ function CrudTable(props) {
                 </table>
             </div>
         </>
-    ) : "";
+    );
 }
 
 export default CrudTable

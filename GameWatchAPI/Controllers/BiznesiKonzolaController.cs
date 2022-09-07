@@ -1,4 +1,5 @@
-﻿using GameWatchAPI.Data;
+﻿using AutoMapper;
+using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,15 +12,17 @@ namespace GameWatchAPI.Controllers
     public class BiznesiKonzolaController : ControllerBase
     {
         private readonly GameWatchDBContext _context;
-        public BiznesiKonzolaController(GameWatchDBContext context)
+        private readonly IMapper _mapper;
+        public BiznesiKonzolaController(GameWatchDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet("get-biznesi-konzolat")]
         public async Task<ActionResult<List<BiznesiKonzola>>> GetBiznesiKonzola()
         {
-            return Ok(await _context.BiznesiKonzola.ToListAsync());
+            return Ok(_mapper.Map<List<BiznesiKonzolaDTO>>(await _context.BiznesiKonzola.ToListAsync()));
         }
 
         [HttpGet("get-biznesi-konzola-by-id")]
@@ -59,14 +62,9 @@ namespace GameWatchAPI.Controllers
             if (biznesiKonzolaDTO == null)
                 return BadRequest("Nuk mund te shtoni biznesKonsole te zbrazet!");
 
-            var biznesiKonsola = new BiznesiKonzola
-            {
-                Emri = biznesiKonzolaDTO.Emri,
-                KonzolaId = biznesiKonzolaDTO.KonzolaId,
-                LokaliId = biznesiKonzolaDTO.LokaliId
-            };
+            var biznesiKonzola = _mapper.Map<BiznesiKonzola>(biznesiKonzolaDTO);
 
-            _context.BiznesiKonzola.Add(biznesiKonsola);
+            _context.BiznesiKonzola.Add(biznesiKonzola);
             await _context.SaveChangesAsync();
 
             return Ok(biznesiKonzolaDTO);
@@ -85,7 +83,6 @@ namespace GameWatchAPI.Controllers
                 dbBiznesiKonzola.KonzolaId = biznesiKonzolaDTO.KonzolaId;
             if (biznesiKonzolaDTO.LokaliId != 0)
                 dbBiznesiKonzola.LokaliId = biznesiKonzolaDTO.LokaliId;
-            dbBiznesiKonzola.Statusi = biznesiKonzolaDTO.Statusi;
 
             await _context.SaveChangesAsync();
 

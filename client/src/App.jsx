@@ -9,9 +9,14 @@ import Register from './features/register/register';
 import Dashboard from './features/dashboard/dashboard';
 import LokaliInterface from './features/lokali-interface/LokaliInterface';
 
+import { QueryClientProvider, QueryClient} from 'react-query';
+
+
+const queryClient = new QueryClient()
+
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <div className="container">
         <Navbar />
         <Routes>
@@ -22,7 +27,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </>
+    </QueryClientProvider>
   );
 }
 

@@ -1,4 +1,5 @@
-﻿using GameWatchAPI.Data;
+﻿using AutoMapper;
+using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -12,15 +13,17 @@ namespace GameWatchAPI.Controllers
     public class BiznesiController : ControllerBase
     {
         private readonly GameWatchDBContext _context;
-        public BiznesiController(GameWatchDBContext context)
+        private readonly IMapper _mapper;
+        public BiznesiController(GameWatchDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet("get-bizneset")]
         public async Task<ActionResult<List<Biznesi>>> GetBiznesin()
         {
-            return Ok(await _context.Biznesi.ToListAsync());
+            return Ok(_mapper.Map<List<GetBiznesiDTO>>(await _context.Biznesi.ToListAsync()));
         }
 
         [HttpGet("get-biznesin-by-id")]
@@ -39,16 +42,7 @@ namespace GameWatchAPI.Controllers
             if (biznesiDTO == null)
                 return BadRequest("Nuk mund te shtoni biznes te zbrazet!");
 
-            var biznesi = new Biznesi
-            {
-                Emri = biznesiDTO.Emri,
-                Email = biznesiDTO.Email,
-                NrTel = biznesiDTO.NrTel,
-                Qyteti = biznesiDTO.Qyteti,
-                Adresa = biznesiDTO.Adresa,
-                ProfilePicture = biznesiDTO.ProfilePicture
-        };
-
+            var biznesi = _mapper.Map<Biznesi>(biznesiDTO);
             _context.Biznesi.Add(biznesi);
             await _context.SaveChangesAsync();
 

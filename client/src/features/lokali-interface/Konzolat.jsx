@@ -8,12 +8,19 @@ import GamePlayedIcon from '../../img/popup-konzola-assets/game-played.svg';
 import TimeFinishIcon from '../../img/popup-konzola-assets/time-finish.svg';
 import AddKonzolaSession from './SelectedKonzola/AddKonzolaSession';
 
+import { useQuery } from 'react-query';
+import agent from '../../api/agents';
+
 const Konzolat = () => {
     const[showTakenKonzola, setShowTakenKonzola] = useState(false);
     const[showFreeKonzola, setShowFreeKonzola] = useState(false);
     const[bizKonzolaId, setBizKonzolaId] = useState();
 
-    const{ bizKonzolat, lokaliFaturat} = useContext(GWContext);
+    const{ lokaliFaturat} = useContext(GWContext);
+
+    const {isLoading, data: bizKonzolat } = useQuery('bizKonzolat', () => {
+        return agent.BiznesiKonzolat.list();
+    })
 
     function convertToTime(dateTime) {
         let date = new Date(dateTime);
@@ -26,14 +33,14 @@ const Konzolat = () => {
             <div className="konzola-sidebar">
                 <ul>
                 {React.Children.toArray(
-                    bizKonzolat.map(konzola => (
-                        <li>{konzola.konzola.modeli}</li>
+                    bizKonzolat?.map(konzola => (
+                        <li>{konzola?.konzola?.modeli}</li>
                 )))}
                 </ul>
             </div>
             <div className="konzola-main">
                 {React.Children.toArray(
-                    bizKonzolat.map(konzola => (
+                    bizKonzolat?.map(konzola => (
                         <div className="konzola-playstation">
                             <div className="konzola-playstation-title">
                                 <h1>{konzola.emri}</h1>
@@ -63,7 +70,7 @@ const Konzolat = () => {
             </div>
         </div>
         { showTakenKonzola ? <SelectedKonzola 
-                            bizKonzola={bizKonzolat.find(b => b.id === bizKonzolaId)}
+                            bizKonzola={bizKonzolat?.find(b => b.id === bizKonzolaId)}
                             fatura={lokaliFaturat.find(fatura => fatura.biznesiKonzola === bizKonzolaId)}
                             setShowTakenKonzola={setShowTakenKonzola}
                             showTakenKonzola={showTakenKonzola}

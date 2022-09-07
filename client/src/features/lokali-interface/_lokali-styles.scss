@@ -51,6 +51,10 @@
                 margin: 0;
             }
 
+            &:hover{
+                box-shadow: $secondaryCol 20px 20px;
+            }
+
             .konzola-playstation-body{
                 display: flex;
                 flex-direction: row;
@@ -75,10 +79,6 @@
                     }
                 }
             }
-        }
-
-        .konzola-playstation:hover{
-            box-shadow: $secondaryCol 20px 20px;
         }
         
         .expand{
@@ -196,7 +196,7 @@
         margin-top: 20px;
         padding: 0% 20%;
 
-        // .perfundo-button{
+        // .finalizo-button{
         // }
         .perditeso-button{
             background-color: $secondaryCol;

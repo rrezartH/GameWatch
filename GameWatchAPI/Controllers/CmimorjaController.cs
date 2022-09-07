@@ -1,4 +1,5 @@
-﻿using GameWatchAPI.Data;
+﻿using AutoMapper;
+using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,15 +12,17 @@ namespace GameWatchAPI.Controllers
     public class CmimorjaController : ControllerBase
     {
         private readonly GameWatchDBContext _context;
-        public CmimorjaController(GameWatchDBContext context)
+        private readonly IMapper _mapper;
+        public CmimorjaController(GameWatchDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet("get-cmimoret")]
-        public async Task<ActionResult<List<Cmimorja>>> GetCmimorja()
+        public async Task<ActionResult<List<GetCmimiDTO>>> GetCmimorja()
         {
-            return Ok(await _context.Cmimorja.ToListAsync());
+            return Ok(_mapper.Map<List<GetCmimiDTO>>(await _context.Cmimorja.ToListAsync()));
         }
 
         [HttpGet("get-cmimorja-by-id")]
@@ -38,12 +41,7 @@ namespace GameWatchAPI.Controllers
             if (cmimorjaDTO == null)
                 return BadRequest("Nuk mund te shtoni cmimore te zbrazet!");
 
-            var cmimorja = new Cmimorja
-            {
-                NrLojtareve = cmimorjaDTO.NrLojtareve,
-                Cmimi = cmimorjaDTO.Cmimi,
-                BiznesiId = cmimorjaDTO.BiznesiId
-            };
+            var cmimorja = _mapper.Map<Cmimorja>(cmimorjaDTO);
 
             _context.Cmimorja.Add(cmimorja);
             await _context.SaveChangesAsync();

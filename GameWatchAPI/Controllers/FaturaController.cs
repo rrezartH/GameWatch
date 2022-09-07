@@ -1,4 +1,5 @@
-﻿using GameWatchAPI.Data;
+﻿using AutoMapper;
+using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using GameWatchAPI.Services;
@@ -14,17 +15,19 @@ namespace GameWatchAPI.Controllers
     {
         private readonly GameWatchDBContext _context;
         private readonly FaturaService _faturaService;
+        private readonly IMapper _mapper;
 
-        public FaturaController(GameWatchDBContext context, FaturaService faturaService)
+        public FaturaController(GameWatchDBContext context, FaturaService faturaService, IMapper mapper)
         {
             _context = context;
             _faturaService = faturaService;
+            _mapper = mapper;
         }
 
         [HttpGet("get-faturat")]
-        public async Task<ActionResult<List<Fatura>>> GetFatura()
+        public async Task<ActionResult<List<GetFaturaDTO>>> GetFatura()
         {
-            return Ok(await _context.Fatura.ToListAsync());
+            return Ok(_mapper.Map<List<GetFaturaDTO>>(await _context.Fatura.ToListAsync()));
         }
 
         [HttpGet("get-fatura-by-id")]
@@ -80,6 +83,8 @@ namespace GameWatchAPI.Controllers
             var dbFatura = await _context.Fatura.FindAsync(id);
             if (dbFatura == null)
                 return NotFound("Kjo fature nuk u gjet!");
+            if(dbFatura.Closed == true)
+                return BadRequest("Kjo fature eshte mbyllur!");
 
             return Ok(await _faturaService.GetPreviewFaturaAsync(dbFatura));
         } 

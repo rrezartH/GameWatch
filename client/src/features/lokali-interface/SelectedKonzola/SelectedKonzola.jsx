@@ -13,7 +13,6 @@ const SelectedKonzola = (props) => {
   const{ bizKonzola, fatura, setShowTakenKonzola, showTakenKonzola } = props
 
   const[localFatura, setLocalFatura] = useState(fatura)
-
   const[showUpdateFatura, setShowUpdateFatura] = useState(false);
 
   function handleFinalize(id) {
@@ -26,13 +25,13 @@ const SelectedKonzola = (props) => {
   function handlePreview(id) {
     agent.Faturat.preview(id)
       .then(response => {
-        console.log(fatura.mbarimiLojes)
-
         setLocalFatura((prev) => {
-          return {...prev, cmimiTotal: response.cmimiTotal, oret: response.oret, mbarimiLojes: response.mbarimiLojes}
-        })
-
-        console.log(fatura)
+          return {
+            ...prev, 
+            cmimiTotal: response.cmimiTotal, 
+            oret: response.oret, 
+            mbarimiLojes: response.mbarimiLojes}
+        });
       }).catch(function(error) {
         console.log(error.response.data)
       });
@@ -62,7 +61,7 @@ const SelectedKonzola = (props) => {
             </div>
           </div>
           <div className="konzola-buttons">
-            <button className='perfundo-button' onClick={() => handleFinalize(localFatura?.id)}>Finalizo</button>
+            <button className='finalizo-button' onClick={() => handleFinalize(localFatura?.id)}>Finalizo</button>
             {fatura.cmimiTotal !== 0 ? 
               <button className='perditeso-button' onClick={() => setShowUpdateFatura(!showUpdateFatura)}>Perditeso</button> 
             :
