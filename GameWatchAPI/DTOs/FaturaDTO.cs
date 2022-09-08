@@ -10,7 +10,7 @@ namespace GameWatchAPI.DTOs
         public int? BiznesiKonzola { get; set; }
         public int VideoLojaId { get; set; }
         public int LokaliId { get; set; }
-        public decimal CmimiTotal { get; set; }
+        public decimal? CmimiTotal { get; set; }
     }
 
     public class UpdateFaturaDTO
@@ -29,7 +29,7 @@ namespace GameWatchAPI.DTOs
         public int? BiznesiKonzola { get; set; }
         public int VideoLojaId { get; set; }
         public int LokaliId { get; set; }
-        public decimal CmimiTotal { get; set; }
+        public decimal? CmimiTotal { get; set; }
         public bool? Closed { get; set; }
 
         public VideoLoja? VideoLoja { get; set; }

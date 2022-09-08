@@ -35,7 +35,7 @@ namespace GameWatchAPI.Services
                 Closed = false,
             };
 
-            fatura.MbarimiLojes = fatura.Oret != 0 ? DateTime.Now.AddMinutes((double)fatura.Oret * 60).ToString() : null;
+            fatura.MbarimiLojes = fatura.Oret != 0 && fatura.Oret != null ? DateTime.Now.AddMinutes((double)fatura.Oret * 60).ToString() : null;
 
             var dbBiznesiKonzola = await _context.BiznesiKonzola.FindAsync(faturaDTO.BiznesiKonzola);
             dbBiznesiKonzola.Statusi = true;

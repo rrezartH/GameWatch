@@ -29,8 +29,8 @@ export const FormSelect = (props) => {
         required
         >
           <option value="">Zgjedh</option>
-          {Children.toArray(props.objects.map(object => (
-            <option value={object.id}>{object[props.objectName]}</option>
+          {Children.toArray(props?.objects?.map(object => (
+            <option value={object?.id}>{object[props.objectName]}</option>
           )))}
         </select>
     </div>

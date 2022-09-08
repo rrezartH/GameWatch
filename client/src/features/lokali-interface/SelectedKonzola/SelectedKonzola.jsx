@@ -7,6 +7,8 @@ import TimeIcon from '../../../img/popup-konzola-assets/time.svg';
 import PlayersIcon from '../../../img/popup-konzola-assets/players.svg'
 import agent from '../../../api/agents';
 import UpdateFatura from './UpdateFatura';
+import { useMutation, useQueryClient } from 'react-query';
+import { BIZNESI_KONZOLA_KEY } from '../../../hooks/useBiznesiKonzola';
 
 const SelectedKonzola = (props) => {
 
@@ -15,11 +17,22 @@ const SelectedKonzola = (props) => {
   const[localFatura, setLocalFatura] = useState(fatura)
   const[showUpdateFatura, setShowUpdateFatura] = useState(false);
 
+  const queryClient = useQueryClient();
+
+  const finalizeFatura = (id) => agent.Faturat.finalize(id).catch(function(error) {
+    console.log(error.response.data)
+  });
+
+  const { mutate } =  useMutation(finalizeFatura, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(BIZNESI_KONZOLA_KEY);
+    }
+  })
+
   function handleFinalize(id) {
-    agent.Faturat.finalize(id).catch(function(error) {
-      console.log(error.response.data)
-    });
+    mutate(id);
     console.log("Fatura u finalizua!");
+    setShowTakenKonzola(!showTakenKonzola);
   }
 
   function handlePreview(id) {

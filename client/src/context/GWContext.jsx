@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState, createContext } from 'react'
 import agent from '../api/agents';
+import { useBiznesiKonzolat } from '../hooks/useBiznesiKonzola';
 
 export const GWContext = createContext();
 
@@ -17,8 +18,10 @@ export const GWProvider = props => {
     const [videoLojat, setVideoLojat] = useState([])
 
     //user
-    const[bizKonzolat, setBizKonzolat] = useState([]);
+    //const[bizKonzolat, setBizKonzolat] = useState([]);
     const[lokaliFaturat, setLokaliFaturat] = useState([]);
+
+    //const { data: bizKonzolat } = useBiznesiKonzolat();
 
     function fetchDbAsAdmin() {
       agent.Bizneset.list().then(response => {
@@ -30,9 +33,9 @@ export const GWProvider = props => {
         agent.Konzolat.list().then(response => {
           setKonzolat(response)
         })
-        agent.BiznesiKonzolat.list().then(response => {
-          setBiznesiKonzolat(response)
-        })
+         agent.BiznesiKonzolat.list().then(response => {
+           setBiznesiKonzolat(response)
+         })
         agent.BizneziKonzolaVideolojat.list().then(response => {
           setBizneziKonzolaVideolojat(response)
         })
@@ -48,9 +51,9 @@ export const GWProvider = props => {
     }
 
     function fetchDbAsUser() {
-      agent.BiznesiKonzolat.listById(1).then(response => {
-        setBizKonzolat(response)
-    })
+    //   agent.BiznesiKonzolat.listById(1).then(response => {
+    //     setBizKonzolat(response)
+    // })
       agent.Faturat.listLokaliNonClosed(1).then(response => {
         setLokaliFaturat(response)
       })
@@ -71,7 +74,6 @@ export const GWProvider = props => {
       cmimoret,
       faturat,
       videoLojat,
-      bizKonzolat,
       lokaliFaturat
       } }>
         {props.children}

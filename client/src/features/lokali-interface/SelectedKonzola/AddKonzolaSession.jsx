@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { useContext } from 'react';
 import agent from '../../../api/agents';
 import { FormInput, FormSelect } from '../../../components/form/input/FormInput';
-import { GWContext } from '../../../context/GWContext';
+import { BIZNESI_KONZOLA_KEY, NON_CLOSED_FATURAT } from '../../../hooks/useBiznesiKonzola';
+import { useMutation, useQueryClient } from 'react-query';
 
 const AddKonzolaSession = (props) => {
 
-   const { setShowFreeKonzola, showFreeKonzola, bizKonzolaId } = props
+   const { setShowFreeKonzola, showFreeKonzola, bizKonzolaId, videoLojat } = props
 
-   const { videoLojat } = useContext(GWContext);
+  const queryClient = useQueryClient();
 
    const [fatura, setFatura] = useState({
     mbarimiLojes: "",
@@ -17,36 +17,41 @@ const AddKonzolaSession = (props) => {
     biznesiKonzola: bizKonzolaId,
     videoLojaId: 0,
     lokaliId: 1, //hardcoded
-    cmimiTotal: 0
+    cmimiTotal: 0.0
   });
   
+  const createFatura = (fatura) =>
+    agent.Faturat.create(fatura).then(response => {
+      console.log(response)
+    }).catch(function(error) {
+      console.log(error.response.data)
+    });
+  
+
+  const { mutate } =  useMutation(createFatura, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({BIZNESI_KONZOLA_KEY, NON_CLOSED_FATURAT});
+    }
+  })
+
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    if(value !== ""){
     setFatura((prev) => {
       return { ...prev, [name]: value}
-    })
+    })} else{
+      setFatura((prev) => {
+        return { ...prev, [name]: 0}
+      })
+    }
+    //the solution above is to not send a null value to the post request
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(fatura)
-
-    agent.Faturat.create(fatura).catch(function(error) {
-        console.log(error.response.data)
-      });
-
-    // if(isForUpdate){
-    //   agent.Bizneset.update(biznesiId, biznesi)
-    //     .catch((error) => console.log(error))
-    // }
-    // else{
-    //   console.log(biznesi);
-    //   agent.Bizneset.create(biznesi)
-    //     .catch(function(error) {
-    //       console.log(error.response.data)
-    //     });
-    // }
+    mutate(fatura)
+    setShowFreeKonzola(!showFreeKonzola);
   }
 
   return (
