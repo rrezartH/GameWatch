@@ -9,7 +9,10 @@ const FaturaCrud = () => {
   return (
     <>
       <h3>Faturat</h3>
-      <CrudTable apiObjects = {faturat} />
+      <CrudTable 
+        apiObjects = {faturat}
+        objectName="Faturat"
+        />
     </>
   )
 }

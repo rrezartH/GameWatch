@@ -1,4 +1,5 @@
-﻿using GameWatchAPI.Data;
+﻿using AutoMapper;
+using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,16 +12,18 @@ namespace GameWatchAPI.Controllers
     public class VideoLojaController : ControllerBase
     {
         private readonly GameWatchDBContext _context;
+        private readonly IMapper _mapper;
 
-        public VideoLojaController(GameWatchDBContext context)
+        public VideoLojaController(GameWatchDBContext context, IMapper mapper)
         {
-            _context = context; 
+            _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet("get-videlojat")]
         public async Task<ActionResult<List<VideoLoja>>> GetVideoLojrat()
         {
-            return Ok(await _context.VideoLoja.ToListAsync());
+            return Ok(_mapper.Map<List<GetVideoLojaDTO>>(await _context.VideoLoja.ToListAsync()));
         }
 
         [HttpGet("get-videoloja-by-id")]
@@ -30,7 +33,7 @@ namespace GameWatchAPI.Controllers
             if (dbVideoLoja == null)
                 return NotFound("Kjo Videoloje nuk ekziston!");
 
-            return Ok(dbVideoLoja);
+            return Ok(_mapper.Map<GetVideoLojaDTO>(dbVideoLoja));
         }
 
         [HttpGet("get-videolojat-by-emri")]

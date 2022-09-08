@@ -1,4 +1,5 @@
-﻿using GameWatchAPI.Data;
+﻿using AutoMapper;
+using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -12,25 +13,28 @@ namespace GameWatchAPI.Controllers
     {
 
         private readonly GameWatchDBContext _context;
-        public KonzolaController(GameWatchDBContext context)
+        private readonly IMapper _mapper;
+
+        public KonzolaController(GameWatchDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet("get-konzolat")]
-        public async Task<ActionResult<List<Konzola>>> GetKonzola()
+        public async Task<ActionResult<List<GetKonzolaDTO>>> GetKonzola()
         {
-            return Ok(await _context.Konzola.ToListAsync());
+            return Ok(_mapper.Map<List<GetKonzolaDTO>>(await _context.Konzola.ToListAsync()));
         }
 
         [HttpGet("get-konzola-by-id")]
-        public async Task<ActionResult<Konzola>> GetKonzolaById(int id)
+        public async Task<ActionResult<GetKonzolaDTO>> GetKonzolaById(int id)
         {
             var dbKonzola = await _context.Konzola.FindAsync(id);
             if (dbKonzola == null)
                 return NotFound("Kjo Konzole nuk ekziston.");
 
-            return Ok(dbKonzola);
+            return Ok(_mapper.Map<GetKonzolaDTO>(dbKonzola));
         }
 
         [HttpGet("get-konzola-by-emri")]
@@ -52,7 +56,6 @@ namespace GameWatchAPI.Controllers
             var konzola = new Konzola
             {
                 Modeli = konzolaDTO.Modeli,
-
             };
 
             _context.Konzola.Add(konzola);

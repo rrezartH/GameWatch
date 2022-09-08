@@ -1,4 +1,5 @@
-﻿using GameWatchAPI.Data;
+﻿using AutoMapper;
+using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using Microsoft.AspNetCore.Http;
@@ -12,26 +13,28 @@ namespace GameWatchAPI.Controllers
     public class LokaliController : ControllerBase
     {
         private readonly GameWatchDBContext _context;
+        private readonly IMapper _mapper;
 
-        public LokaliController(GameWatchDBContext context)
+        public LokaliController(GameWatchDBContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet("get-lokalet")]
         public async Task<ActionResult<List<Lokali>>> GetLokalet()
         {
-            return Ok(await _context.Lokali.ToListAsync());
+            return Ok(_mapper.Map<List<GetLokaliDTO>>(await _context.Lokali.ToListAsync()));
         }
 
         [HttpGet("get-lokalin")]
-        public async Task<ActionResult<Lokali>> GetLokali(int id)
+        public async Task<ActionResult<GetLokaliDTO>> GetLokali(int id)
         {
             var dbLokali = await _context.Lokali.FindAsync(id);
             if (dbLokali == null)
                 return NotFound("Ky lokal nuk ekziston!");
 
-            return Ok(dbLokali);
+            return Ok(_mapper.Map<GetLokaliDTO>(dbLokali));
         }
 
         [HttpGet("get-lokalin-by-biznesi-id")]
@@ -42,25 +45,18 @@ namespace GameWatchAPI.Controllers
             if (!Lokalet.Any())
                 return NotFound("Nuk u gjet asnje lokal me kete biznes ID!");
 
-            return Ok(Lokalet);
+            return Ok(_mapper.Map<List<GetLokaliDTO>>(Lokalet));
         }
 
         [HttpPost("shto-lokali")]
-        public async Task<ActionResult<Lokali>> ShtoLokali(LokaliDTO lokaliDTO)
+        public async Task<ActionResult<LokaliDTO>> ShtoLokali(LokaliDTO lokaliDTO)
         {
             if (lokaliDTO == null)
                 return BadRequest("Nuk mund te shtosh lokal te zbrazet!");
 
-            var Lokali = new Lokali
-            {
-                Emri = lokaliDTO.Emri,
-                NrTel = lokaliDTO.NrTel,
-                Qyteti = lokaliDTO.Qyteti,
-                Adresa = lokaliDTO.Adresa,
-                BiznesiId = lokaliDTO.BiznesiId
-            };
+            var lokali = _mapper.Map<Lokali>(lokaliDTO);
 
-            _context.Lokali.Add(Lokali);
+            _context.Lokali.Add(lokali);
             await _context.SaveChangesAsync();
 
             return Ok(lokaliDTO);

@@ -8,12 +8,15 @@ namespace GameWatchAPI
     {
         public AutoMapperProfiles()
         {
-
             CreateMap<Biznesi, GetBiznesiDTO>();
-            CreateMap<Biznesi, BiznesiDTO>();
+            CreateMap<Biznesi, BiznesiDTO>().ReverseMap();
             CreateMap<BiznesiKonzola, BiznesiKonzolaDTO>();
             CreateMap<Cmimorja, CmimorjaDTO>().ReverseMap();
             CreateMap<Cmimorja, GetCmimiDTO>();
+            CreateMap<Lokali, GetLokaliDTO>();
+            CreateMap<Konzola, GetKonzolaDTO>();
+            CreateMap<LokaliDTO, Lokali>();
+            CreateMap<VideoLoja, GetVideoLojaDTO>();
             CreateMap<Fatura, UpdateFaturaDTO>()
                 .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
             CreateMap<UpdateFaturaDTO, Fatura>()

@@ -55,7 +55,8 @@ const Faturat = {
     create: (values) => requests.post('Fatura/shto-fatura', values),
     finalize: (id) => requests.put(`Fatura/finalizo-fatura/${id}`),
     update: (id, values) => requests.put(`Fatura/update-fatura/${id}`, values),
-    preview: (id) => requests.get(`/Fatura/get-preview-fatura/${id}`)
+    preview: (id) => requests.get(`Fatura/get-preview-fatura/${id}`),
+    delete: (id) => requests.del(`Fatura/delete-fatura/${id}`)
 }
 const Users = {
     list: () => requests.get('/Users/get-users')

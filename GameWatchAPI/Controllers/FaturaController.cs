@@ -152,5 +152,18 @@ namespace GameWatchAPI.Controllers
 
             return Ok("Fatura u perditesua me sukses!");
         }*/
+    
+        [HttpDelete("delete-fatura/{id}")]
+        public async Task<ActionResult> DeleteFaturaById(int id)
+        {
+            var dbFatura = await _context.Fatura.FindAsync(id);
+            if (dbFatura == null)
+                return NotFound("Kjo fature nuk ekziston!");
+
+            _context.Fatura.Remove(dbFatura);
+            await _context.SaveChangesAsync();
+
+            return Ok("Fatura u fshi me sukses!");
+        }
     }
 }
