@@ -6,6 +6,7 @@ using GameWatchAPI.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Web.Mvc;
+using ActionResult = Microsoft.AspNetCore.Mvc.ActionResult;
 
 namespace GameWatchAPI.Services
 {
@@ -25,7 +26,7 @@ namespace GameWatchAPI.Services
             var cmimi = await _cmimorjaService.GetCmimorjaByLokaliAndLojtaret(faturaDTO.LokaliId, faturaDTO.NrLojtareve);
             Fatura fatura = new()
             {
-                FillimiLojes = DateTime.Now.ToString(),
+                FillimiLojes = DateTime.Now,
                 Oret = faturaDTO.CmimiTotal != 0 ? faturaDTO.CmimiTotal / cmimi : faturaDTO.Oret,
                 NrLojtareve = faturaDTO.NrLojtareve,
                 BiznesiKonzola = faturaDTO.BiznesiKonzola,
@@ -54,7 +55,7 @@ namespace GameWatchAPI.Services
 
             if (fatura.CmimiTotal == 0 || fatura.Oret == 0)
             {
-                TimeSpan oret = DateTime.Now - DateTime.Parse(fatura.FillimiLojes);
+                TimeSpan oret = DateTime.Now - fatura.FillimiLojes;
 
                 fatura.MbarimiLojes = DateTime.Now.ToString();
                 fatura.Oret = (decimal)oret.TotalHours;
@@ -74,13 +75,23 @@ namespace GameWatchAPI.Services
 
             var previewFatura = new PreviewFaturaDTO()
             {
-                Oret = Math.Round((decimal)(DateTime.Now - DateTime.Parse(fatura.FillimiLojes)).TotalHours, 2),
+                Oret = Math.Round((decimal)(DateTime.Now - fatura.FillimiLojes).TotalHours, 2),
                 MbarimiLojes = DateTime.Now.ToString(),
             };
 
             previewFatura.CmimiTotal = previewFatura.Oret ?? 0.0M * cmimi;
 
             return previewFatura;
+        }
+
+        public async Task<decimal> GetEarningsByPeriodAsync(int days, int lokaliId)
+        {
+            var pricesList = await _context.Fatura.Where(f => f.LokaliId == lokaliId
+                                                            && f.FillimiLojes.Date >= DateTime.Now.Date.AddDays(-days))
+                                                                .Select(f => f.CmimiTotal)
+                                                                .ToListAsync();
+
+            return pricesList.Sum() ?? 0.0M;
         }
 
         public async Task UpdateFaturaAsync(Fatura dbFatura, UpdateFaturaDTO faturaDTO)
@@ -98,7 +109,7 @@ namespace GameWatchAPI.Services
                 dbFatura.Oret = dbFatura.CmimiTotal / cmimi;
             }
 
-            dbFatura.MbarimiLojes = DateTime.Parse(dbFatura.FillimiLojes).AddHours((double)dbFatura.Oret!).ToString();
+            dbFatura.MbarimiLojes = dbFatura.FillimiLojes.AddHours((double)dbFatura.Oret!).ToString();
                 
             await _context.SaveChangesAsync();         
         }

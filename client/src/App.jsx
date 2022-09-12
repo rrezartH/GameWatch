@@ -11,8 +11,6 @@ import Register from './features/register/register';
 import Dashboard from './features/dashboard/dashboard';
 import LokaliInterface from './features/lokali-interface/LokaliInterface';
 import { GWProvider } from './context/GWContext';
-import { QueryClientProvider, QueryClient} from 'react-query';
-
 
 const queryClient = new QueryClient()
 

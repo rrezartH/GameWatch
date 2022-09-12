@@ -3,8 +3,6 @@ using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
 using GameWatchAPI.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameWatchAPI.Controllers
@@ -89,6 +87,23 @@ namespace GameWatchAPI.Controllers
             return Ok(await _faturaService.GetPreviewFaturaAsync(dbFatura));
         } 
 
+        [HttpGet("get-earnings-by-period/{period}/{lokaliId}")]
+        public async Task<ActionResult> GetEarningsByPeriod(string period, int lokaliId)
+        {
+            switch (period)
+            {
+                case "daily":
+                    return Ok(await _faturaService.GetEarningsByPeriodAsync(0, lokaliId));
+                case "weekly":
+                    return Ok(await _faturaService.GetEarningsByPeriodAsync(7, lokaliId));
+                case "monthly":
+                    return Ok(await _faturaService.GetEarningsByPeriodAsync(30, lokaliId));
+                default:
+                    break;
+            }
+            return BadRequest("Ju nuk keni vendosur periode valide.");
+        }
+
         [HttpPost("shto-fatura")]
         public async Task<ActionResult<String>> ShtoFature(FaturaDTO faturaDTO)
         {
@@ -118,40 +133,12 @@ namespace GameWatchAPI.Controllers
             if (dbFatura == null)
                 return NotFound("Kjo fature nuk u gjet!");
 
-            if (DateTime.Now.AddHours((double)-faturaDTO.Oret!) > DateTime.Parse(dbFatura.FillimiLojes))
+            if (DateTime.Now.AddHours((double)-faturaDTO.Oret!) > dbFatura.FillimiLojes)
                 return BadRequest("Kane kaluar me shume ore se sa oret qe keni vendosur.");
 
             await _faturaService.UpdateFaturaAsync(dbFatura, faturaDTO);
             return Ok("Perditsimi pati sukses!");
         }
-
-        /*[HttpPut("update-fatura/{id}")]
-        public async Task<ActionResult<FaturaDTO>> UpdateFaturen(int id, FaturaDTO faturaDTO)
-        {
-            var dbFatura = await _context.Fatura.FindAsync(id);
-            if (dbFatura == null)
-                return NotFound("Kjo fature nuk ekziston!");
-
-            if (faturaDTO == null)
-                return BadRequest("Fatura nuk mund te jete e zbrazet!");
-
-            if (!faturaDTO.MbarimiLojes.Trim().Equals(""))
-                dbFatura.MbarimiLojes = faturaDTO.MbarimiLojes;
-            if (faturaDTO.NrLojtareve != 0)
-                dbFatura.NrLojtareve = faturaDTO.NrLojtareve;
-            if (faturaDTO.BiznesiKonzola != 0)
-                dbFatura.BiznesiKonzola = faturaDTO.BiznesiKonzola;
-            if (faturaDTO.VideoLojaId != 0)
-                dbFatura.VideoLojaId = faturaDTO.VideoLojaId;
-            if (faturaDTO.LokaliId != 0)
-                dbFatura.LokaliId = faturaDTO.LokaliId;
-            if (faturaDTO.CmimiTotal != 0)
-                dbFatura.CmimiTotal = faturaDTO.CmimiTotal;
-
-            await _context.SaveChangesAsync();
-
-            return Ok("Fatura u perditesua me sukses!");
-        }*/
     
         [HttpDelete("delete-fatura/{id}")]
         public async Task<ActionResult> DeleteFaturaById(int id)
