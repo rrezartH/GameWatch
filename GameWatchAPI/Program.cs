@@ -31,8 +31,11 @@ builder.Services.AddCors(opt => {
     });
 });
 
-builder.Services.AddControllers()
-    .AddNewtonsoftJson();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+    options.SerializerSettings.DateFormatString = "dd/MM/yyyy hh:mm";
+});
 
 
 builder.Services.AddIdentityServices(_config);

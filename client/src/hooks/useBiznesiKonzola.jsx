@@ -8,40 +8,49 @@ export const BIZNESI_KEY = "biznesi";
 export const LOKALI_KEY = "lokali";
 export const VIDEOLOJAT_KEY = "videolojat";
 export const FATURAT_KEY = "faturat";
-export const CMIMORJA_KEY = "cmimorja"
+export const CMIMORJA_KEY = "cmimorja";
+export const FATURAT_E_LOKALIT_KEY = "lokaliFaturat";
+
+//static id
+
+
 
 //Fetch functions
 const fetchBiznesiKonzola = async () => {
-    let response = await agent.BiznesiKonzolat.listById(1).then(response => {
-        return response;
-    })
     console.log("fetchBiznesiKonzola was called.")
-    return response;
-}
-
-const fetchNonClosedFaturat = async () => {
-    let response = await agent.Faturat.listLokaliNonClosed(1).then(response => {
+    return await agent.BiznesiKonzolat.listById(1).then(response => {
         return response;
-    })
+    });
+}
+const fetchNonClosedFaturat = async (id) => {
     console.log("fetchNonClosedFaturat was called.")
-    return response
-}
-
-const fetchVideolojat = async () => {
-    let response = await agent.VideoLojat.list().then(response => {
+    return await agent.Faturat.listLokaliNonClosed(id).then(response => {
         return response;
     })
+}
+const fetchVideolojat = async () => {
     console.log("videolojat was called")
-    return response;
+    return await agent.VideoLojat.list().then(response => {
+        return response;
+    });
+}
+const fetchFaturatELokalit = async (id, pageNumber) => {
+    console.log("Faturat e lokalit called.");
+    return await agent.Faturat.listFaturatELokalit(id, pageNumber).then(response => {
+        return response;
+    })
 }
 
 //Hooks
 export const useBiznesiKonzolat = () => {
     return useQuery(BIZNESI_KONZOLA_KEY, fetchBiznesiKonzola);
 }
-export const useNonClosedFaturat = () => {
-    return useQuery(NON_CLOSED_FATURAT, fetchNonClosedFaturat);
+export const useNonClosedFaturat = (id) => {
+    return useQuery(NON_CLOSED_FATURAT, () => fetchNonClosedFaturat(id));
 }
 export const useVideolojat = () => {
     return useQuery(VIDEOLOJAT_KEY, fetchVideolojat);
+}
+export const useFaturatELokalit = (id, pageNumber) => {
+    return useQuery([FATURAT_E_LOKALIT_KEY, pageNumber], () => fetchFaturatELokalit(id, pageNumber));
 }

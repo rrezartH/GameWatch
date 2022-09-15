@@ -56,7 +56,9 @@ const Faturat = {
     finalize: (id) => requests.put(`Fatura/finalizo-fatura/${id}`),
     update: (id, values) => requests.put(`Fatura/update-fatura/${id}`, values),
     preview: (id) => requests.get(`Fatura/get-preview-fatura/${id}`),
-    delete: (id) => requests.del(`Fatura/delete-fatura/${id}`)
+    delete: (id) => requests.del(`Fatura/delete-fatura/${id}`),
+    listEarningsByPeriod: (period, lokaliId) => requests.get(`Fatura/get-earnings-by-period/${period}/${lokaliId}`),
+    listFaturatELokalit: (id, pageNumber) => requests.get(`Fatura/get-faturat-by-lokali/${id}?pageNumber=${pageNumber}`)
 }
 const Users = {
     list: () => requests.get('/Users/get-users')

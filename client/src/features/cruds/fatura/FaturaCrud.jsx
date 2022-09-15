@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { GWContext } from '../../../context/GWContext'  
-import CrudTable from '../../../components/crud-table/CrudTable'
+import CrudTable from '../../../components/tables/CrudTable'
 
 const FaturaCrud = () => {
 

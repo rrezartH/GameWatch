@@ -12,10 +12,12 @@ const Konzolat = () => {
     const[showTakenKonzola, setShowTakenKonzola] = useState(false);
     const[showFreeKonzola, setShowFreeKonzola] = useState(false);
     const[bizKonzolaId, setBizKonzolaId] = useState();
+    //TODO: get the lokaliID from authentication
+    const lokaliId = 1;
 
     const { isLoading: isVideolojatLoading, data: videoLojat } = useVideolojat();
     const { isLoading: isBizKonzolatLoading, data: bizKonzolat} = useBiznesiKonzolat();
-    const { isLoading: isNonClosedFaturatLoading, data: lokaliFaturat} = useNonClosedFaturat();
+    const { isLoading: isNonClosedFaturatLoading, data: lokaliFaturat} = useNonClosedFaturat(lokaliId);
 
     function convertToTime(dateTime) {
         let date = new Date(dateTime);

@@ -3,6 +3,7 @@ using GameWatchAPI.Controllers;
 using GameWatchAPI.Data;
 using GameWatchAPI.DTOs;
 using GameWatchAPI.Models;
+using GameWatchAPI.Paging;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Web.Mvc;
@@ -19,6 +20,20 @@ namespace GameWatchAPI.Services
         {
             _context = context;
             _cmimorjaService = cmimorjaService;
+        }
+
+        public async Task<List<Fatura>> GetFaturatByLokaliIdAsync(int id, int? pageNumber)
+        {
+            //TODO: order by mbarimi lojes, but first convert it to datetime
+            List<Fatura> dbFatura = await _context.Fatura
+                                           .OrderByDescending(f=> f.FillimiLojes)
+                                           .Where(f => f.LokaliId == id)
+                                           .ToListAsync();
+
+            int pageSize = 10;
+            dbFatura = PaginatedList<Fatura>.Create(dbFatura.AsQueryable(), pageNumber ?? 1, pageSize);
+            
+            return dbFatura;
         }
 
         public async Task AddFaturaAsync(FaturaDTO faturaDTO)

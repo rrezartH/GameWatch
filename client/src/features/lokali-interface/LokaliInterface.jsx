@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import Cmimorja from './Cmimorja'
-import Faturat from './Faturat'
+import Faturat from './Faturat/Faturat'
 import Konzolat from './Konzolat'
 
 const LokaliInterface = () => {

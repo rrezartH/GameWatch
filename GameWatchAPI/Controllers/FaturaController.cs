@@ -38,7 +38,7 @@ namespace GameWatchAPI.Controllers
             return Ok(dbFatura);
         }
 
-        [HttpGet("get-faturat-by-lokali/{id}")]
+        /*[HttpGet("get-faturat-by-lokali/{id}")]
         public async Task<ActionResult<List<Fatura>>> GetFaturatByLokali(int id)
         {
             List<Fatura> dbFatura = await _context.Fatura
@@ -48,6 +48,17 @@ namespace GameWatchAPI.Controllers
                 return NotFound("Nuk ka asnje fature nga ky lokal!");
 
             return Ok(dbFatura);
+        }*/
+
+        [HttpGet("get-faturat-by-lokali/{id}")]
+        public async Task<ActionResult<List<GetFaturaLokaliDTO>>> GetFaturatByLokali(int id, int pageNumber)
+        {
+            var dbFaturat = _mapper.Map<List<GetFaturaLokaliDTO>>(await _faturaService.GetFaturatByLokaliIdAsync(id, pageNumber));
+
+            if (dbFaturat == null)
+                return NotFound("Ky lokal nuk ka asnje fature!");
+
+            return Ok(dbFaturat);
         }
 
         [HttpGet("get-non-closed-faturat-e-lokalit/{id}")]
