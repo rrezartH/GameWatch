@@ -7,6 +7,8 @@ import GamePlayedIcon from '../../img/popup-konzola-assets/game-played.svg';
 import TimeFinishIcon from '../../img/popup-konzola-assets/time-finish.svg';
 import AddKonzolaSession from './SelectedKonzola/AddKonzolaSession';
 import { useBiznesiKonzolat, useNonClosedFaturat, useVideolojat } from '../../hooks/useBiznesiKonzola';
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 
 const Konzolat = () => {
     const[showTakenKonzola, setShowTakenKonzola] = useState(false);
@@ -25,7 +27,12 @@ const Konzolat = () => {
     }
 
   if(isBizKonzolatLoading || isNonClosedFaturatLoading || isVideolojatLoading){
-    return "Loading..."
+    return <ScaleLoader
+                size={150}
+                color={"#4bc3b5"}
+                loading={isBizKonzolatLoading}
+                speedMultiplier={1.5}
+            />
   }
 
   const handleExpand = (konzolaId, konzolaStatusi) => {

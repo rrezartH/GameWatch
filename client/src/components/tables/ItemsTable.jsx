@@ -4,12 +4,17 @@ import './_crud-table.scss'
 function ItemsTable(props) {
     const { apiObjects, setPageNumber } = props;
     const apiObjectKeys = apiObjects.length > 0 ? Object.keys(apiObjects[0]) : null;
+    
     const capitalizeFirst = str => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     };
 
     const handleNextOrPrevious = (isNext) => {
-        setPageNumber((prev) => isNext? prev + 1 : prev - 1)
+        if(isNext){
+            setPageNumber((prev) => prev + 1)            
+        } else {
+            setPageNumber((prev) => prev > 1 ? prev - 1 : prev)
+        }  
     }
 
     return (
