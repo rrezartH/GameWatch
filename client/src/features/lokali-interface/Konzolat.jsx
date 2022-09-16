@@ -28,16 +28,23 @@ const Konzolat = () => {
     return "Loading..."
   }
 
+  const handleExpand = (konzolaId, konzolaStatusi) => {
+        if(konzolaStatusi){
+            setBizKonzolaId(konzolaId)
+            setShowTakenKonzola(!showTakenKonzola)
+        } else {
+            setShowFreeKonzola(!showFreeKonzola);
+        }
+  }
+
   return (
     <>
         <div className="konzola">
             <div className="konzola-sidebar">
-                <ul>
                 {React.Children.toArray(
                     bizKonzolat?.map(konzola => (
-                        <li>{konzola?.konzola?.modeli }</li>
+                        <button onClick={() => handleExpand(konzola.id, konzola.statusi)}>{konzola?.emri }</button>
                 )))}
-                </ul>
             </div>
             <div className="konzola-main">
                 {React.Children.toArray(
@@ -54,7 +61,7 @@ const Konzolat = () => {
                                             <img src={GamePlayedIcon} alt="game-played-icon" />     
                                             <p>{lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.videoLoja.emri}</p>
                                         </div> : null}
-                                    {konzola.statusi ? 
+                                    {konzola.statusi && konzola.oret ? 
                                         <div className='img-text-group'> 
                                             <img src={TimeFinishIcon} alt="time-finish-icon" />  
                                             <p>{convertToTime(lokaliFaturat.find(fatura => fatura.biznesiKonzola === konzola.id)?.mbarimiLojes)}</p></div>
@@ -62,10 +69,7 @@ const Konzolat = () => {
                                 </div>
                                 <img src={konzola.statusi ? RedStatusIcon : GreenStatusIcon} alt="status" />
                             </div>
-                            <button className='expand' onClick={() => {konzola.statusi ? 
-                                                                        setShowTakenKonzola(!showTakenKonzola) : setShowFreeKonzola(!showFreeKonzola);
-                                                                         setBizKonzolaId(konzola.id)}}
-                                                                         >Zmadho</button>
+                            <button className='expand' onClick={() => handleExpand(konzola.id, konzola.statusi)}>Zmadho</button>
                         </div>
                 )))}
             </div>

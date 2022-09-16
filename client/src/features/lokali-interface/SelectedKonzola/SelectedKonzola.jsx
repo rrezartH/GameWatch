@@ -57,25 +57,25 @@ const SelectedKonzola = (props) => {
           <button className='close-btn-konzola' onClick={() => setShowTakenKonzola(!showTakenKonzola)}>x</button>
           <div className="selected-konzola">
             <div className="selected-konzola-title">
-              <h3>{bizKonzola.emri}</h3>
+              <h3>{bizKonzola?.emri}</h3>
               <p>ID #{localFatura?.id}</p>
             </div>
             <div className="selected-konzola-details">
               <div className="selected-konzola-details-left">
                 <div className='selected-konzola-details-element'> <img src={GamePlayedIcon} alt="game-played-icon" />  <p>{localFatura?.videoLoja.emri}</p></div>
                 <div className='selected-konzola-details-element'> <img src={TimeStartIcon} alt="time-start-icon" /> <p>{localFatura?.fillimiLojes}</p> </div>
-                <div className='selected-konzola-details-element'> <img src={TimeFinishIcon} alt="time-finish-icon" /> <p>{localFatura?.mbarimiLojes !== "" ? localFatura?.mbarimiLojes : "Pacaktuar"}</p> </div>
+                <div className='selected-konzola-details-element'> <img src={TimeFinishIcon} alt="time-finish-icon" /> <p>{localFatura?.mbarimiLojes !== null ? localFatura?.mbarimiLojes : "I Pacaktuar"}</p> </div>
               </div>            
               <div className="selected-konzola-details-right">
                 <div className='selected-konzola-details-element'> <img src={PlayersIcon} alt="players-icon" /><p>{localFatura?.nrLojtareve} Lojtarë</p> </div>
-                <div className='selected-konzola-details-element'> <img src={TimeIcon} alt="time-icon" /><p>{localFatura?.oret} Orë</p> </div>
-                <div className='selected-konzola-details-element'> <img src={PriceIcon} alt="price-icon" /><p>{localFatura?.cmimiTotal}€</p> </div>
+                <div className='selected-konzola-details-element'> <img src={TimeIcon} alt="time-icon" /><p>{localFatura?.oret === 0 || null ? "Te Pacaktuara" : localFatura?.oret + " Ore" } </p> </div>
+                <div className='selected-konzola-details-element'> <img src={PriceIcon} alt="price-icon" /><p>{localFatura?.cmimiTotal === 0 || null ? "I Pacaktuar" : localFatura?.cmimiTotal + " €"}</p> </div>
               </div>
             </div>
           </div>
           <div className="konzola-buttons">
             <button className='finalizo-button' onClick={() => handleFinalize(localFatura?.id)}>Finalizo</button>
-            {fatura.cmimiTotal !== 0 ? 
+            {fatura?.cmimiTotal !== 0 ? 
               <button className='perditeso-button' onClick={() => setShowUpdateFatura(!showUpdateFatura)}>Perditeso</button> 
             :
               <button onClick={() => handlePreview(fatura.id)}>Preview</button>
