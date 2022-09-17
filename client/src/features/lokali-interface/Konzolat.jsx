@@ -20,7 +20,6 @@ const Konzolat = () => {
     const { isLoading: isVideolojatLoading, data: videoLojat } = useVideolojat();
     const { isLoading: isBizKonzolatLoading, data: bizKonzolat} = useBiznesiKonzolat();
     const { isLoading: isNonClosedFaturatLoading, data: lokaliFaturat} = useNonClosedFaturat(lokaliId);
-
     function convertToTime(dateTime) {
         let date = new Date(dateTime);
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -36,8 +35,8 @@ const Konzolat = () => {
   }
 
   const handleExpand = (konzolaId, konzolaStatusi) => {
-        if(konzolaStatusi){
-            setBizKonzolaId(konzolaId)
+    setBizKonzolaId(konzolaId)
+    if(konzolaStatusi){
             setShowTakenKonzola(!showTakenKonzola)
         } else {
             setShowFreeKonzola(!showFreeKonzola);
