@@ -6,12 +6,12 @@ import { FormInput, FormSelect } from '../../../components/form/input/FormInput'
 
 const CreateBiznesiKonzola = (props) => {
   const {lokalet, konzolat} = useContext(GWContext);
-  const {biznesiKonzolaId, isForUpdate} = props;
+  const {biznesiKonzolaId, isForUpdate, lokaliId} = props;
 
   const [biznesiKonzola, setBiznesiKonzola] = useState({
     emri: "",
     konzolaId: 0,
-    lokaliId: 0
+    lokaliId: lokaliId !== undefined || lokaliId !== null ? lokaliId : 0
   });
   
   const handleChange = (e) => {
@@ -68,14 +68,18 @@ const CreateBiznesiKonzola = (props) => {
             objectName={"modeli"}
             required={!isForUpdate}
             />
-           <FormSelect
-            objects={lokalet}
-            name="lokaliId"
-            label="Lokali"
-            onChange={handleChange}
-            objectName={"emri"}
-            required={!isForUpdate}
-            />
+          {biznesiKonzola.lokaliId === undefined ?
+            <FormSelect
+              objects={lokalet}
+              name="lokaliId"
+              label="Lokali"
+              onChange={handleChange}
+              objectName={"emri"}
+              required={!isForUpdate}
+              />
+            :
+            null
+            }
            <button type='submit'>{isForUpdate ? "Update" : "Shto"}</button>
         </form>
       </div>

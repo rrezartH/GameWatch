@@ -8,6 +8,10 @@
     justify-content:space-evenly;
     
     .konzola-sidebar{
+        text-align: center;
+    }
+
+    .konzola-sidebar-show{
         display: grid;
         gap: 10px;
         grid-template-columns: repeat(auto-fit, 60px);
@@ -25,6 +29,16 @@
             padding: 0px 10px;
             white-space: nowrap;
         }
+    }
+    
+    .konzola-sidebar-add{
+            width: 50%;
+            justify-content: center;
+            margin: 10px;
+            background-color: $secondaryCol;    
+    }
+    .konzola-sidebar-add:hover{
+        background-color: $primaryCol;
     }
 
     .konzola-main{

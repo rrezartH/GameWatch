@@ -6,6 +6,7 @@ import GreenStatusIcon from '../../img/popup-konzola-assets/green-status.svg';
 import GamePlayedIcon from '../../img/popup-konzola-assets/game-played.svg';
 import TimeFinishIcon from '../../img/popup-konzola-assets/time-finish.svg';
 import AddKonzolaSession from './SelectedKonzola/AddKonzolaSession';
+import CreateBiznesiKonzola from '../cruds/biznesiKonzola/CreateBiznesiKonzola';
 import { useBiznesiKonzolat, useNonClosedFaturat, useVideolojat } from '../../hooks/useBiznesiKonzola';
 import ScaleLoader from "react-spinners/ScaleLoader";
 
@@ -14,6 +15,8 @@ const Konzolat = () => {
     const[showTakenKonzola, setShowTakenKonzola] = useState(false);
     const[showFreeKonzola, setShowFreeKonzola] = useState(false);
     const[bizKonzolaId, setBizKonzolaId] = useState();
+    const[showCreate, setShowCreate] = useState(false);
+
     //TODO: get the lokaliID from authentication
     const lokaliId = 1;
 
@@ -47,11 +50,19 @@ const Konzolat = () => {
     <>
         <div className="konzola">
             <div className="konzola-sidebar">
-                {React.Children.toArray(
-                    bizKonzolat?.map(konzola => (
-                        <button onClick={() => handleExpand(konzola.id, konzola.statusi)}>{konzola?.emri }</button>
-                )))}
-            </div>
+                <div className="konzola-sidebar-show">
+                    {React.Children.toArray(
+                        bizKonzolat?.map(konzola => (
+                            <button onClick={() => handleExpand(konzola.id, konzola.statusi)}>{konzola?.emri }</button>
+                    )))}
+                </div>
+                <button 
+                    className='konzola-sidebar-add'
+                    onClick={() => setShowCreate(!showCreate)}>
+                    Shto Konzole
+                </button>
+            </div>    
+                
             <div className="konzola-main">
                 {React.Children.toArray(
                     bizKonzolat?.map(konzola => (
@@ -92,6 +103,12 @@ const Konzolat = () => {
                             bizKonzolaId={bizKonzolaId}
                             videoLojat={videoLojat}
                                 /> : ""}
+        {showCreate ? <CreateBiznesiKonzola 
+                      showCreate={showCreate} 
+                      setShowCreate={setShowCreate} 
+                      biznesiKonzolaId={bizKonzolaId}
+                      lokaliId={lokaliId}
+                      /> : null}
     </>
   ) 
 }
